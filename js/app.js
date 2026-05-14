@@ -305,7 +305,7 @@ function initTabs() {
    ============================================================ */
 
 function sendWhatsApp(phone, message) {
-  const tel = phone || document.getElementById('whatsapp-fab')?.dataset.phone || '972501234567';
+  const tel = phone || document.getElementById('whatsapp-fab')?.dataset.phone || '33763662002';
   const msg = encodeURIComponent(message || 'Bonjour, je souhaite en savoir plus sur votre proposition.');
   window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 }
