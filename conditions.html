@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conditions &mdash; Dan ELFASSI | ORRTYL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .conditions-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+      background: var(--color-card-bg);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: var(--space-6);
+    }
+    .conditions-table thead {
+      background: var(--color-dark);
+      color: white;
+    }
+    .conditions-table th {
+      padding: var(--space-4) var(--space-5);
+      text-align: left;
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .conditions-table td {
+      padding: var(--space-4) var(--space-5);
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text);
+      vertical-align: middle;
+    }
+    .conditions-table tr:last-child td { border-bottom: none; }
+    .conditions-table tr:hover td { background: var(--color-page-bg); }
+    .price-highlight {
+      font-size: var(--text-2xl);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+    }
+    .price-sub {
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+    }
+    .scope-item {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+    }
+    .scope-item-title {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .scope-item-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+    .ip-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .ip-row:last-child { border-bottom: none; }
+    .ip-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: var(--color-primary-bg);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ip-label {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+      color: var(--color-dark);
+    }
+    .ip-desc {
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+    }
+    .payment-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      text-align: center;
+    }
+    .payment-card.featured {
+      border-color: var(--color-primary);
+      background: linear-gradient(135deg, var(--color-primary-bg), var(--color-card-bg));
+    }
+    .payment-label {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+    .payment-amount {
+      font-size: var(--text-2xl);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+      margin-bottom: var(--space-1);
+    }
+    .payment-desc {
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+    .limit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+    .limit-item:last-child { border-bottom: none; }
+    .limit-item-icon {
+      color: #f59e0b;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .signature-box {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+    }
+    .signature-name {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+      margin-bottom: var(--space-2);
+    }
+    .signature-role {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+    }
+    .signature-line {
+      border-top: 2px dashed var(--color-border);
+      padding-top: var(--space-4);
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+    }
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: var(--space-10) 0;
+    }
+    .cta-block {
+      text-align: center;
+      padding: var(--space-16) var(--space-4);
+      background: linear-gradient(135deg, var(--color-primary-bg), var(--color-card-bg));
+      border-radius: var(--radius-2xl);
+      border: 1px solid var(--color-primary);
+      margin-top: var(--space-12);
+    }
+    @media (max-width: 768px) {
+      .conditions-table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body data-page="conditions">
+
+  <div id="progress-bar"></div>
+
+  <!-- NAV -->
+  <nav class="nav nav-glass" id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Dan <span class="logo-accent">ELFASSI</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="ecosysteme.html" class="nav-link">&Eacute;cosyst&egrave;me</a>
+        <a href="besoin.html" class="nav-link">Besoin</a>
+        <a href="mission.html" class="nav-link">Mission</a>
+        <a href="livrables.html" class="nav-link">Livrables</a>
+        <a href="conditions.html" class="nav-link active">Conditions</a>
+      </div>
+      <div class="nav-hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="ecosysteme.html" class="nav-link">&Eacute;cosyst&egrave;me</a>
+      <a href="besoin.html" class="nav-link">Besoin</a>
+      <a href="mission.html" class="nav-link">Mission</a>
+      <a href="livrables.html" class="nav-link">Livrables</a>
+      <a href="conditions.html" class="nav-link active">Conditions</a>
+    </div>
+  </nav>
+
+  <!-- HERO MINI -->
+  <section class="hero" style="min-height:40vh; padding-top:120px; padding-bottom:var(--space-12);">
+    <div class="hero-particles" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-content" style="text-align:center; max-width:700px; margin:0 auto;">
+        <p class="hero-eyebrow reveal" data-delay="0"><i class="fa-solid fa-file-contract"></i> Conditions de la mission</p>
+        <h1 class="hero-title reveal" data-delay="1">Investissement &amp; <span class="gradient-text">conditions</span></h1>
+        <p class="hero-subtitle reveal" data-delay="2">Les termes financiers, le p&eacute;rim&egrave;tre, la propri&eacute;t&eacute; intellectuelle et les conditions d&rsquo;engagement de la mission ORRTYL.</p>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" style="padding-bottom:var(--space-20);">
+
+    <!-- 6.1 INVESTISSEMENT -->
+    <section id="investissement" style="margin-bottom:var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">6.1</span>
+        <h2 class="section-title">Investissement</h2>
+        <p class="section-subtitle">Honoraires de la mission sur 24 mois, en shekels (&#8362;), avec le d&eacute;tail mois par mois.</p>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:var(--space-8);">
+        <div class="payment-card featured reveal" data-delay="1">
+          <div class="payment-label">Total mission</div>
+          <div class="payment-amount">84 000 &#8362;</div>
+          <div class="payment-desc">24 mois d&rsquo;engagement</div>
+        </div>
+        <div class="payment-card reveal" data-delay="2">
+          <div class="payment-label">M1 &agrave; M12</div>
+          <div class="payment-amount">3 000 &#8362;/mois</div>
+          <div class="payment-desc">= 36 000 &#8362; sur les 12 premiers mois</div>
+        </div>
+        <div class="payment-card reveal" data-delay="3">
+          <div class="payment-label">M13 &agrave; M24</div>
+          <div class="payment-amount">4 000 &#8362;/mois</div>
+          <div class="payment-desc">= 48 000 &#8362; sur les 12 derniers mois</div>
+        </div>
+      </div>
+
+      <!-- Accordion calendrier mensuel -->
+      <div class="accordion reveal" data-delay="4">
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span><i class="fa-solid fa-calendar-days" style="color:var(--color-primary);margin-right:var(--space-2);"></i> Voir le calendrier de facturation mois par mois</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="accordion-content">
+            <table class="conditions-table" style="margin-top:var(--space-4);">
+              <thead>
+                <tr>
+                  <th>Mois</th>
+                  <th>Montant (&#8362;)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>M1</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M2</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M3</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M4</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M5</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M6</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M7</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M8</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M9</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M10</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M11</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M12</td><td><strong>3 000 &#8362;</strong></td></tr>
+                <tr><td>M13</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M14</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M15</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M16</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M17</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M18</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M19</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M20</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M21</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M22</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M23</td><td><strong>4 000 &#8362;</strong></td></tr>
+                <tr><td>M24</td><td><strong>4 000 &#8362;</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frais client -->
+      <h3 class="reveal" data-delay="5" style="font-size:var(--text-base);font-weight:var(--weight-semibold);color:var(--color-dark);margin:var(--space-8) 0 var(--space-4);">Frais &agrave; pr&eacute;voir par le client (hors honoraires)</h3>
+      <table class="conditions-table reveal" data-delay="6" style="margin-top:var(--space-4);">
+        <thead>
+          <tr>
+            <th>Poste</th>
+            <th>Estimation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Penny Lane</td><td>~200&ndash;300&euro;/mois</td></tr>
+          <tr><td>Budget pub r&eacute;seaux sociaux</td><td>&agrave; d&eacute;finir</td></tr>
+          <tr><td>Frais API bots (Telegram/WhatsApp)</td><td>~200 &#8362;/mois</td></tr>
+          <tr><td>Nom de domaine</td><td>~50&ndash;100 &#8362;/an</td></tr>
+          <tr><td>Licences / tokens tiers</td><td>Selon besoins</td></tr>
+        </tbody>
+      </table>
+
+      <div class="validation-widget reveal" data-delay="7" style="margin-top:var(--space-8);">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; Investissement</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="investissement" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="investissement">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="investissement" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur l&rsquo;investissement&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 6.2 PÉRIMÈTRE & GARDE-FOUS -->
+    <section id="perimetre" style="margin-bottom:var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">6.2</span>
+        <h2 class="section-title">P&eacute;rim&egrave;tre &amp; garde-fous</h2>
+        <p class="section-subtitle">Ce qu&rsquo;on fait, ce qui est exclu, et les engagements r&eacute;ciproques.</p>
+      </div>
+
+      <h3 class="reveal" data-delay="1" style="font-size:var(--text-base);font-weight:var(--weight-semibold);color:var(--color-dark);margin-bottom:var(--space-4);">Ce qu&rsquo;on fait <span style="color:#10b981;">&#10003;</span></h3>
+      <div class="grid-3" style="margin-bottom:var(--space-8);">
+        <div class="scope-item reveal" data-delay="2">
+          <div class="scope-item-title"><i class="fa-solid fa-check" style="color:#10b981;"></i> Structuration financi&egrave;re</div>
+          <div class="scope-item-desc">Vision consolid&eacute;e multi-entit&eacute;s, tableau de bord temps r&eacute;el.</div>
+        </div>
+        <div class="scope-item reveal" data-delay="3">
+          <div class="scope-item-title"><i class="fa-solid fa-check" style="color:#10b981;"></i> Penny Lane</div>
+          <div class="scope-item-desc">Mise en place, configuration, int&eacute;gration bancaire, exports comptables auto.</div>
+        </div>
+        <div class="scope-item reveal" data-delay="4">
+          <div class="scope-item-title"><i class="fa-solid fa-check" style="color:#10b981;"></i> CRM sur mesure</div>
+          <div class="scope-item-desc">C-Lodge et chalet montagne &mdash; r&eacute;servations, devis, planning, historique client.</div>
+        </div>
+        <div class="scope-item reveal" data-delay="5">
+          <div class="scope-item-title"><i class="fa-solid fa-check" style="color:#10b981;"></i> Automatisations</div>
+          <div class="scope-item-desc">Notes vocales &rarr; CRM, photos factures &rarr; rapprochement, bot FAQ parents.</div>
+        </div>
+        <div class="scope-item reveal" data-delay="6">
+          <div class="scope-item-title"><i class="fa-solid fa-check" style="color:#10b981;"></i> Marketing digital</div>
+          <div class="scope-item-desc">Planning publications automatis&eacute;, Insta/FB/TikTok, sessions mensuelles.</div>
+        </div>
+        <div class="scope-item reveal" data-delay="7">
+          <div class="scope-item-title"><i class="fa-solid fa-check" style="color:#10b981;"></i> Dossier partenaire financier</div>
+          <div class="scope-item-desc">Pr&eacute;sentation consolid&eacute;e pour banques et investisseurs.</div>
+        </div>
+        <div class="scope-item reveal" data-delay="8">
+          <div class="scope-item-title"><i class="fa-solid fa-check" style="color:#10b981;"></i> Formation &amp; proc&eacute;dures</div>
+          <div class="scope-item-desc">Documentation des process, formation de l&rsquo;&eacute;quipe &agrave; l&rsquo;utilisation des outils.</div>
+        </div>
+        <div class="scope-item reveal" data-delay="9">
+          <div class="scope-item-title"><i class="fa-solid fa-check" style="color:#10b981;"></i> Interface AlloColo</div>
+          <div class="scope-item-desc">Connexion API si disponible, centralisation inscriptions colos.</div>
+        </div>
+        <div class="scope-item reveal" data-delay="10">
+          <div class="scope-item-title"><i class="fa-solid fa-check" style="color:#10b981;"></i> Plateforme dons</div>
+          <div class="scope-item-desc">Stripe/Link, mur donateurs, tombola, promesses de dons &mdash; 0% frais.</div>
+        </div>
+        <div class="scope-item reveal" data-delay="11">
+          <div class="scope-item-title"><i class="fa-solid fa-check" style="color:#10b981;"></i> Cartes bleues &eacute;quipes</div>
+          <div class="scope-item-desc">Via Penny Lane, avec contr&ocirc;le et cat&eacute;gorisation automatique.</div>
+        </div>
+      </div>
+
+      <h3 class="reveal" data-delay="12" style="font-size:var(--text-base);font-weight:var(--weight-semibold);color:var(--color-dark);margin-bottom:var(--space-4);">Exclusions</h3>
+      <div class="reveal" data-delay="13" style="background:var(--color-card-bg);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-8);margin-bottom:var(--space-8);">
+        <div class="limit-item">
+          <i class="fa-solid fa-circle-xmark limit-item-icon"></i>
+          <div>Cr&eacute;ation de contenu photo/vid&eacute;o professionnel (tournage, montage pro)</div>
+        </div>
+        <div class="limit-item">
+          <i class="fa-solid fa-circle-xmark limit-item-icon"></i>
+          <div>Budgets publicitaires (Meta, TikTok, Google) &mdash; pay&eacute;s directement par le client</div>
+        </div>
+        <div class="limit-item">
+          <i class="fa-solid fa-circle-xmark limit-item-icon"></i>
+          <div>Abonnements aux outils tiers (Penny Lane, h&eacute;bergement, emailing)</div>
+        </div>
+        <div class="limit-item">
+          <i class="fa-solid fa-circle-xmark limit-item-icon"></i>
+          <div>Impressions physiques (flyers, cartes de visite, signal&eacute;tique)</div>
+        </div>
+        <div class="limit-item">
+          <i class="fa-solid fa-circle-xmark limit-item-icon"></i>
+          <div>Expertise-comptable et validation fiscale (responsabilit&eacute; de l&rsquo;expert-comptable)</div>
+        </div>
+        <div class="limit-item">
+          <i class="fa-solid fa-circle-xmark limit-item-icon"></i>
+          <div>Traductions autres que fran&ccedil;ais et h&eacute;breu</div>
+        </div>
+      </div>
+
+      <h3 class="reveal" data-delay="14" style="font-size:var(--text-base);font-weight:var(--weight-semibold);color:var(--color-dark);margin-bottom:var(--space-4);">Engagements r&eacute;ciproques</h3>
+      <div class="grid-2 reveal" data-delay="15">
+        <div class="scope-item">
+          <div class="scope-item-title" style="color:var(--color-dark);">Dan ELFASSI s&rsquo;engage &agrave;</div>
+          <div class="scope-item-desc">
+            <ul style="margin:0;padding-left:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);">
+              <li>Rester l&rsquo;interlocuteur r&eacute;f&eacute;rent</li>
+              <li>Fournir les acc&egrave;s (comptes bancaires, Drive, AlloColo, JotForm)</li>
+              <li>Participer aux points d&rsquo;arbitrage (3 &times; 45 min/semaine en phase intensive)</li>
+              <li>Fournir les informations dans des d&eacute;lais raisonnables</li>
+            </ul>
+          </div>
+        </div>
+        <div class="scope-item">
+          <div class="scope-item-title" style="color:var(--color-dark);">Jeremy Bouznah LTD s&rsquo;engage &agrave;</div>
+          <div class="scope-item-desc">
+            <ul style="margin:0;padding-left:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);">
+              <li>Respecter le p&eacute;rim&egrave;tre et les livrables</li>
+              <li>Confidentialit&eacute; absolue</li>
+              <li>Communication proactive</li>
+              <li>Livrables fonctionnels &mdash; &laquo;&nbsp;pr&ecirc;ts &agrave; manger, pas des ingr&eacute;dients dans des bols&nbsp;&raquo;</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="validation-widget reveal" data-delay="16" style="margin-top:var(--space-8);">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; P&eacute;rim&egrave;tre</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="perimetre" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="perimetre">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="perimetre" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur le p&eacute;rim&egrave;tre&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 6.3 PROPRIÉTÉ INTELLECTUELLE -->
+    <section id="propriete" style="margin-bottom:var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">6.3</span>
+        <h2 class="section-title">Propri&eacute;t&eacute; intellectuelle</h2>
+        <p class="section-subtitle">R&egrave;gles claires sur la propri&eacute;t&eacute; du code source et des livrables.</p>
+      </div>
+
+      <div class="reveal" data-delay="1" style="background:var(--color-card-bg);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-8);">
+        <div class="ip-row">
+          <div class="ip-icon"><i class="fa-solid fa-code"></i></div>
+          <div>
+            <div class="ip-label">Pendant le contrat</div>
+            <div class="ip-desc">Le code source reste propri&eacute;t&eacute; de Jeremy Bouznah LTD pendant toute la dur&eacute;e de l&rsquo;engagement.</div>
+          </div>
+        </div>
+        <div class="ip-row">
+          <div class="ip-icon"><i class="fa-solid fa-circle-check"></i></div>
+          <div>
+            <div class="ip-label">Fin d&rsquo;engagement (24 mois pay&eacute;s)</div>
+            <div class="ip-desc">Le client re&ccedil;oit les acc&egrave;s complets &agrave; l&rsquo;ensemble des livrables et du code source.</div>
+          </div>
+        </div>
+        <div class="ip-row">
+          <div class="ip-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div>
+            <div class="ip-label">R&eacute;siliation anticip&eacute;e</div>
+            <div class="ip-desc">Livrables termin&eacute;s uniquement. Le code source est c&eacute;d&eacute; contre paiement du solde restant.</div>
+          </div>
+        </div>
+        <div class="ip-row">
+          <div class="ip-icon"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <div class="ip-label">Contenus fournis par le client</div>
+            <div class="ip-desc">Textes, photos, donn&eacute;es &mdash; restent la propri&eacute;t&eacute; exclusive du client.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 6.4 CONDITIONS DE PAIEMENT -->
+    <section id="paiement" style="margin-bottom:var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">6.4</span>
+        <h2 class="section-title">Conditions de paiement</h2>
+        <p class="section-subtitle">Modalit&eacute;s pratiques de facturation et de r&egrave;glement.</p>
+      </div>
+
+      <div class="grid-3 reveal" data-delay="1">
+        <div class="payment-card">
+          <div class="payment-label">D&eacute;lai de paiement</div>
+          <div class="payment-amount" style="font-size:var(--text-xl);">7 jours nets</div>
+          <div class="payment-desc">&Agrave; r&eacute;ception de facture.</div>
+        </div>
+        <div class="payment-card">
+          <div class="payment-label">P&eacute;nalit&eacute;s de retard</div>
+          <div class="payment-amount" style="font-size:var(--text-xl);">1,5%/mois</div>
+          <div class="payment-desc">Appliqu&eacute;es automatiquement apr&egrave;s &eacute;ch&eacute;ance.</div>
+        </div>
+        <div class="payment-card">
+          <div class="payment-label">Facturation</div>
+          <div class="payment-amount" style="font-size:var(--text-xl);">Jeremy Bouznah LTD</div>
+          <div class="payment-desc">N&deg;&nbsp;517110912 &mdash; J&eacute;rusalem</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 6.5 PÉRIMÈTRE ET LIMITES -->
+    <section id="limites" style="margin-bottom:var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">6.5</span>
+        <h2 class="section-title">P&eacute;rim&egrave;tre et limites</h2>
+        <p class="section-subtitle">Ce que cette collaboration implique concr&egrave;tement.</p>
+      </div>
+
+      <div class="reveal" data-delay="1" style="background:var(--color-card-bg);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-8);">
+        <div class="limit-item">
+          <i class="fa-solid fa-circle-check" style="color:#10b981;" class="limit-item-icon"></i>
+          <div>Jeremy Bouznah LTD strat&eacute;gise, con&ccedil;oit et automatise. Le client reste d&eacute;cideur et op&eacute;rateur.</div>
+        </div>
+        <div class="limit-item">
+          <i class="fa-solid fa-circle-check" style="color:#10b981;" class="limit-item-icon"></i>
+          <div>Le client fournit les contenus, acc&egrave;s et informations dans des d&eacute;lais raisonnables pour permettre la bonne ex&eacute;cution de la mission.</div>
+        </div>
+        <div class="limit-item">
+          <i class="fa-solid fa-circle-check" style="color:#10b981;" class="limit-item-icon"></i>
+          <div>Toute demande hors p&eacute;rim&egrave;tre d&eacute;fini fera l&rsquo;objet d&rsquo;un devis compl&eacute;mentaire.</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 6.6 SIGNATURES -->
+    <section id="signatures" style="margin-bottom:var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">6.6</span>
+        <h2 class="section-title">Signature &amp; validation</h2>
+        <p class="section-subtitle">En signant ce document, les deux parties confirment leur accord sur l&rsquo;ensemble des termes de la mission.</p>
+      </div>
+
+      <div class="grid-2 reveal" data-delay="1" style="margin-bottom:var(--space-8);">
+        <div class="signature-box">
+          <div class="signature-name">Dan ELFASSI</div>
+          <div class="signature-role">Nom, Fonction</div>
+          <div class="signature-line">
+            Date &mdash; Signature<br>
+            <span style="display:inline-block;margin-top:var(--space-2);font-style:italic;">Lu et approuv&eacute;</span>
+          </div>
+        </div>
+        <div class="signature-box">
+          <div class="signature-name">Jeremy Bouznah</div>
+          <div class="signature-role">Dirigeant &mdash; Jeremy Bouznah LTD</div>
+          <div class="signature-line">
+            Date &mdash; Signature<br>
+            <span style="display:inline-block;margin-top:var(--space-2);font-style:italic;">Lu et approuv&eacute;</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grand CTA de validation -->
+      <div class="cta-block reveal" data-delay="2">
+        <p style="font-size:var(--text-2xl);font-weight:var(--weight-bold);color:var(--color-dark);margin-bottom:var(--space-3);">Pr&ecirc;t &agrave; valider la mission ?</p>
+        <p style="font-size:var(--text-base);color:var(--color-text-secondary);margin-bottom:var(--space-8);max-width:480px;margin-left:auto;margin-right:auto;">
+          En cliquant sur le bouton ci-dessous, vous confirmez avoir lu et accept&eacute; l&rsquo;ensemble des termes de cette mission.
+        </p>
+        <button class="btn btn-primary btn-lg" id="validate-mission-btn" onclick="(function(){var done=localStorage.getItem('mission-validated')==='true';if(done){localStorage.removeItem('mission-validated');}else{localStorage.setItem('mission-validated','true');}var btn=document.getElementById('validate-mission-btn');btn.textContent=done?'Je valide la mission':'Mission valid\u00e9e \u2013 Merci Dan\u00a0!';})()">
+          <i class="fa-solid fa-circle-check"></i> Je valide la mission
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--color-dark);color:rgba(255,255,255,0.6);text-align:center;padding:var(--space-10) var(--space-4);">
+    <div class="container">
+      <p style="font-size:var(--text-sm);margin-bottom:var(--space-2);">
+        <a href="index.html" style="color:rgba(255,255,255,0.8);text-decoration:none;font-weight:var(--weight-semibold);">Dan <span style="color:var(--color-primary-light);">ELFASSI</span></a>
+        &nbsp;&mdash;&nbsp;
+        <a href="ecosysteme.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">&Eacute;cosyst&egrave;me</a> &middot;
+        <a href="besoin.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Besoin</a> &middot;
+        <a href="mission.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Mission</a> &middot;
+        <a href="livrables.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Livrables</a> &middot;
+        <a href="conditions.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Conditions</a>
+      </p>
+      <p style="font-size:var(--text-xs);color:rgba(255,255,255,0.35);">Document confidentiel &mdash; usage exclusif Dan ELFASSI &amp; ORRTYL &mdash; &copy; 2026</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp FAB -->
+  <div class="whatsapp-fab">
+    <div class="whatsapp-fab-label">Une question ?</div>
+    <a href="https://wa.me/33763662002" target="_blank" rel="noopener" class="whatsapp-fab-btn" aria-label="Contacter via WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const pb = document.getElementById('progress-bar');
+    if (pb) {
+      window.addEventListener('scroll', () => {
+        const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        pb.style.width = Math.min(pct, 100) + '%';
+      }, { passive: true });
+    }
+    const nav = document.getElementById('main-nav');
+    if (nav) {
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      }, { passive: true });
+    }
+    const hb = document.getElementById('hamburger');
+    const nm = document.getElementById('nav-mobile');
+    if (hb && nm) {
+      hb.addEventListener('click', () => {
+        hb.classList.toggle('open');
+        nm.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>

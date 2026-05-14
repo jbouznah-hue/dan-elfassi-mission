@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil &mdash; Dan ELFASSI | ORRTYL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .flow-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      min-width: 130px;
+      flex: 1;
+    }
+    .flow-box-num {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: white;
+      font-size: var(--text-sm);
+      font-weight: var(--weight-bold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(79,56,224,0.35);
+    }
+    .flow-box-label {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+      color: var(--color-dark);
+      text-align: center;
+    }
+    .flow-box-sub {
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+      text-align: center;
+      line-height: 1.5;
+    }
+    .flowchart-card {
+      background: var(--color-page-bg);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6) var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    .intro-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-10);
+    }
+    .intro-text {
+      font-size: var(--text-lg);
+      color: var(--color-text);
+      line-height: 1.8;
+      margin-bottom: var(--space-6);
+    }
+    .intro-text strong { color: var(--color-dark); }
+    .page-card {
+      display: block;
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      transition: all var(--transition-slow);
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+    .page-card:hover {
+      border-color: var(--color-border-hover);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      color: inherit;
+    }
+    .page-card:hover::before { opacity: 1; }
+    .page-card:hover .page-card-icon {
+      background: var(--color-primary);
+      color: white;
+      transform: scale(1.05);
+    }
+    .page-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-lg);
+      background: var(--color-primary-bg);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: var(--space-5);
+      transition: all var(--transition-base);
+    }
+    .page-card-title {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-semibold);
+      color: var(--color-dark);
+      margin-bottom: var(--space-2);
+    }
+    .page-card-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+    }
+    .page-card-badge {
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-4);
+    }
+    .page-card-arrow {
+      margin-top: var(--space-5);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      color: var(--color-primary);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: all var(--transition-base);
+    }
+    .page-card:hover .page-card-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .page-card-disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      align-items: center;
+      margin-bottom: var(--space-8);
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.65);
+    }
+    .hero-meta-item i { color: rgba(167,139,250,0.85); font-size: 0.9rem; }
+    .hero-legal {
+      margin-top: var(--space-8);
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body data-page="index">
+
+  <div id="progress-bar"></div>
+
+  <nav class="nav nav-glass" id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Dan <span class="logo-accent">ELFASSI</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Accueil</a>
+        <a href="ecosysteme.html" class="nav-link">&Eacute;cosyst&egrave;me</a>
+        <a href="besoin.html" class="nav-link">Votre Besoin</a>
+        <a href="mission.html" class="nav-link">Mission</a>
+        <a href="livrables.html" class="nav-link">Livrables</a>
+        <a href="conditions.html" class="nav-link">Conditions</a>
+      </div>
+      <div class="nav-hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="ecosysteme.html" class="nav-link">&Eacute;cosyst&egrave;me</a>
+      <a href="besoin.html" class="nav-link">Votre Besoin</a>
+      <a href="mission.html" class="nav-link">Mission</a>
+      <a href="livrables.html" class="nav-link">Livrables</a>
+      <a href="conditions.html" class="nav-link">Conditions</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div class="hero-particles"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <i class="fa-solid fa-star-of-david" style="font-size:0.8rem;"></i>
+          Proposition de collaboration &mdash; Mai&nbsp;2026
+        </div>
+        <h1 class="hero-title">
+          Transformation digitale<br>
+          &amp;&nbsp;<span class="gradient-text">structuration op&eacute;rationnelle</span>
+        </h1>
+        <p class="hero-subtitle">
+          Dan ELFASSI &mdash; Accompagnement&nbsp;360&deg;<br>
+          Un plan complet pour centraliser, digitaliser et faire cro&icirc;tre vos activit&eacute;s.
+        </p>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Mai&nbsp;2026</span>
+          </div>
+          <div class="hero-meta-item">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>5 activit&eacute;s concern&eacute;es</span>
+          </div>
+          <div class="hero-meta-item">
+            <i class="fa-solid fa-clock"></i>
+            <span>R&eacute;union initiale&nbsp;: 14 mai 2026 (2h)</span>
+          </div>
+          <div class="hero-meta-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>J&eacute;rusalem / Paris</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="mission.html" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-rocket"></i>
+            Voir la mission
+          </a>
+          <a href="conditions.html" class="btn btn-outline-white btn-lg">
+            <i class="fa-solid fa-file-contract"></i>
+            Conditions &amp; investissement
+          </a>
+        </div>
+        <p class="hero-legal">
+          Jeremy Bouznah LTD &mdash; &#1490;&#1512;&#1502;&#1497; &#1489;&#1493;&#1494;&#1504;&#1492; &#1489;&#1506;&#8221;&#1502; &mdash; N&deg;&nbsp;517110912 &mdash; J&eacute;rusalem
+        </p>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">Scroll</div>
+  </section>
+
+  <div class="wave-divider">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="var(--color-page-bg)" />
+    </svg>
+  </div>
+
+  <main>
+
+    <section class="section" id="overview">
+      <div class="container">
+
+        <div class="section-header reveal" data-delay="0">
+          <span class="section-label">
+            <i class="fa-solid fa-compass"></i>
+            Vue d&rsquo;ensemble
+          </span>
+          <h2 class="section-title">Un accompagnement structur&eacute; en 4 phases</h2>
+          <p class="section-subtitle">
+            Suite &agrave; notre r&eacute;union du 14 mai 2026 (2h), ce document formalise notre collaboration.
+          </p>
+        </div>
+
+        <div class="intro-card reveal" data-delay="1">
+          <p class="intro-text">
+            Ce document restitue votre environnement, reformule votre besoin, et propose un <strong>plan d&rsquo;action complet</strong> pour structurer et digitaliser l&rsquo;ensemble de vos activit&eacute;s &mdash; Maha&icirc;ne Isra&euml;l, Signature Kosher, le chalet en montagne, le village de vacances et le service traiteur.
+          </p>
+
+          <div class="flowchart-card">
+            <div class="flowchart" role="list">
+              <div class="flow-box" role="listitem">
+                <div class="flow-box-num">&#9312;</div>
+                <div>
+                  <div class="flow-box-label">Comprendre</div>
+                  <div class="flow-box-sub">Audit &amp; cartographie de l&rsquo;&eacute;cosyst&egrave;me</div>
+                </div>
+              </div>
+              <div class="flow-arrow" aria-hidden="true"></div>
+              <div class="flow-box" role="listitem">
+                <div class="flow-box-num">&#9313;</div>
+                <div>
+                  <div class="flow-box-label">Structurer</div>
+                  <div class="flow-box-sub">Processus, outils, organisation</div>
+                </div>
+              </div>
+              <div class="flow-arrow" aria-hidden="true"></div>
+              <div class="flow-box" role="listitem">
+                <div class="flow-box-num">&#9314;</div>
+                <div>
+                  <div class="flow-box-label">D&eacute;ployer</div>
+                  <div class="flow-box-sub">Solutions digitales &amp; automatisations</div>
+                </div>
+              </div>
+              <div class="flow-arrow" aria-hidden="true"></div>
+              <div class="flow-box" role="listitem">
+                <div class="flow-box-num">&#9315;</div>
+                <div>
+                  <div class="flow-box-label">Accompagner</div>
+                  <div class="flow-box-sub">Suivi, formation &amp; it&eacute;rations</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="validation-widget" data-section="overview">
+            <div class="validation-header">
+              <div>
+                <div class="validation-title">&#10003;&nbsp; Valider la vue d&rsquo;ensemble</div>
+                <div style="font-size:var(--text-xs);color:var(--color-text-secondary);margin-top:2px;">Confirmez que le cadrage global correspond &agrave; votre attente.</div>
+              </div>
+              <div class="validation-actions">
+                <button class="comment-btn btn btn-sm btn-ghost" data-section="overview"><i class="fa-regular fa-comment"></i> Commenter</button>
+                <button class="valid-btn btn-validate" data-section="overview" data-label-default="Valider" data-label-done="&#10003; Valid&eacute;">
+                  <i class="fa-solid fa-check"></i> Valider
+                </button>
+              </div>
+            </div>
+            <div class="comment-area" data-section="overview">
+              <textarea placeholder="Vos remarques, corrections ou questions&hellip;" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="stats-section" id="stats">
+      <div class="container">
+        <div class="section-header centered reveal" data-delay="0" style="margin-bottom:var(--space-12);">
+          <span class="section-label" style="justify-content:center;color:rgba(167,139,250,1);">Chiffres cl&eacute;s</span>
+          <h2 class="section-title" style="color:white;">L&rsquo;&eacute;cosyst&egrave;me Dan ELFASSI en chiffres</h2>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card reveal" data-delay="0">
+            <div class="stat-number">
+              <span class="counter" data-target="8" data-suffix="+">0</span>
+              <span class="suffix">+</span>
+            </div>
+            <div class="stat-label">Structures juridiques</div>
+          </div>
+          <div class="stat-card reveal" data-delay="1">
+            <div class="stat-number">
+              <span class="counter" data-target="40" data-suffix="+">0</span>
+              <span class="suffix">+</span>
+            </div>
+            <div class="stat-label">Ann&eacute;es Maha&#238;ne Isra&euml;l</div>
+          </div>
+          <div class="stat-card reveal" data-delay="2">
+            <div class="stat-number">
+              <span class="counter" data-target="5">0</span>
+            </div>
+            <div class="stat-label">Marques &amp; activit&eacute;s</div>
+          </div>
+          <div class="stat-card reveal" data-delay="3">
+            <div class="stat-number">
+              <span class="counter" data-target="84">0</span>
+              <span class="suffix">K &#8362;</span>
+            </div>
+            <div class="stat-label">Investissement propos&eacute;</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave-divider-top" style="background:var(--color-page-bg);">
+      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="position:absolute;top:0;width:100%;height:100%;">
+        <path d="M0,40 C240,0 480,80 720,40 C960,0 1200,80 1440,40 L1440,0 L0,0 Z" fill="var(--color-dark)" />
+      </svg>
+    </div>
+
+    <section class="section" id="pages">
+      <div class="container">
+        <div class="section-header centered reveal" data-delay="0">
+          <span class="section-label" style="justify-content:center;">
+            <i class="fa-solid fa-map"></i>
+            Navigation
+          </span>
+          <h2 class="section-title">Explorer ce document</h2>
+          <p class="section-subtitle">Six sections pour couvrir l&rsquo;int&eacute;gralit&eacute; de la proposition &mdash; de l&rsquo;&eacute;cosyst&egrave;me &agrave; la signature.</p>
+        </div>
+
+        <div class="grid-3">
+          <a href="ecosysteme.html" class="page-card reveal" data-delay="0">
+            <div class="page-card-icon"><i class="fa-solid fa-diagram-project"></i></div>
+            <div class="page-card-title">&Eacute;cosyst&egrave;me</div>
+            <div class="page-card-desc">Cartographie juridique, marques, outils existants et situation financi&egrave;re de vos activit&eacute;s.</div>
+            <div class="page-card-arrow">Explorer <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+          <a href="besoin.html" class="page-card reveal" data-delay="1">
+            <div class="page-card-icon"><i class="fa-solid fa-bullseye"></i></div>
+            <div class="page-card-title">Votre Besoin</div>
+            <div class="page-card-desc">Priorit&eacute;s identifi&eacute;es, verbatims de notre r&eacute;union et reformulation structur&eacute;e de vos enjeux.</div>
+            <div class="page-card-arrow">Explorer <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+          <a href="mission.html" class="page-card reveal" data-delay="2">
+            <div class="page-card-icon"><i class="fa-solid fa-rocket"></i></div>
+            <div class="page-card-title">Mission</div>
+            <div class="page-card-desc">Proposition compl&egrave;te, modules d&rsquo;intervention et architecture cible de votre &eacute;cosyst&egrave;me digital.</div>
+            <div class="page-card-arrow">Explorer <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+          <a href="livrables.html" class="page-card reveal" data-delay="3">
+            <div class="page-card-icon"><i class="fa-solid fa-list-check"></i></div>
+            <div class="page-card-title">Livrables</div>
+            <div class="page-card-desc">Liste exhaustive des livrables, timeline de d&eacute;ploiement et jalons de validation.</div>
+            <div class="page-card-arrow">Explorer <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+          <a href="conditions.html" class="page-card reveal" data-delay="4">
+            <div class="page-card-icon"><i class="fa-solid fa-file-contract"></i></div>
+            <div class="page-card-title">Conditions</div>
+            <div class="page-card-desc">Investissement d&eacute;taill&eacute;, garde-fous contractuels, engagements mutuels et modalit&eacute;s.</div>
+            <div class="page-card-arrow">Explorer <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+          <div class="page-card page-card-disabled reveal" data-delay="5" style="cursor:not-allowed;">
+            <span class="page-card-badge"><span class="badge badge-orange">Bient&ocirc;t</span></span>
+            <div class="page-card-icon" style="opacity:0.55;"><i class="fa-solid fa-chart-line"></i></div>
+            <div class="page-card-title" style="color:var(--color-text-secondary);">Suivi Mission</div>
+            <div class="page-card-desc">Tableau de bord de suivi en temps r&eacute;el &mdash; activ&eacute; automatiquement apr&egrave;s signature.</div>
+            <div style="margin-top:var(--space-4);">
+              <span class="badge badge-gray"><i class="fa-solid fa-lock" style="font-size:0.65rem;"></i> Accessible apr&egrave;s signature</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="background:var(--color-dark);color:white;padding:3rem 0;text-align:center;">
+    <div class="container">
+      <p style="font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">Dan ELFASSI &mdash; Accompagnement 360&deg;</p>
+      <p style="font-size:0.85rem;opacity:0.6;margin-bottom:0.25rem;">Jeremy Bouznah LTD &mdash; N&deg; 517110912 &mdash; 81 Rue Shahal, J&eacute;rusalem</p>
+      <p style="font-size:0.75rem;opacity:0.4;">Mai 2026</p>
+    </div>
+  </footer>
+
+  <div class="whatsapp-fab" id="whatsapp-fab">
+    <span class="whatsapp-fab-label">Contacter Jeremy</span>
+    <a href="https://wa.me/33763662002" class="whatsapp-fab-btn" target="_blank" rel="noopener noreferrer" aria-label="Contacter Jeremy sur WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    (function () {
+      var bar = document.getElementById('progress-bar');
+      var nav = document.getElementById('main-nav');
+      var hamburger = document.getElementById('hamburger');
+      var navMobile = document.getElementById('nav-mobile');
+
+      window.addEventListener('scroll', function () {
+        var scrollTop = window.scrollY;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (bar) bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+        if (nav) nav.classList.toggle('scrolled', scrollTop > 50);
+      }, { passive: true });
+
+      if (hamburger && navMobile) {
+        hamburger.addEventListener('click', function () {
+          var isOpen = navMobile.classList.toggle('open');
+          hamburger.classList.toggle('open', isOpen);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

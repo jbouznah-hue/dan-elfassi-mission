@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission &mdash; Dan ELFASSI | ORRTYL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .vision-card {
+      background: linear-gradient(135deg, var(--color-primary-bg), var(--color-card-bg));
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-xl);
+      padding: var(--space-10);
+      margin-bottom: var(--space-8);
+    }
+    .vision-lead {
+      font-size: var(--text-xl);
+      font-weight: var(--weight-semibold);
+      color: var(--color-dark);
+      line-height: 1.6;
+      margin-bottom: var(--space-4);
+    }
+    .vision-body {
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: 1.8;
+    }
+    /* Phases flowchart */
+    .phases-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin: var(--space-8) 0;
+    }
+    .phase-step {
+      background: var(--color-card-bg);
+      border: 2px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-6);
+      text-align: center;
+      min-width: 130px;
+    }
+    .phase-step-num {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-1);
+    }
+    .phase-step-label {
+      font-size: var(--text-base);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+    }
+    .phase-arrow {
+      color: var(--color-primary);
+      font-size: 1.4rem;
+      font-weight: var(--weight-bold);
+    }
+    /* Ecosystem hub */
+    .ecosystem-hub {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-8);
+      margin: var(--space-8) 0;
+    }
+    .hub-center {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-6) var(--space-10);
+      text-align: center;
+      font-size: var(--text-lg);
+      font-weight: var(--weight-bold);
+      box-shadow: var(--shadow-lg);
+    }
+    .hub-branches {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-4);
+      width: 100%;
+    }
+    .hub-branch {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+      position: relative;
+    }
+    .hub-branch-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--color-primary-bg);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin: 0 auto var(--space-3);
+    }
+    .hub-branch-title {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+      margin-bottom: var(--space-1);
+    }
+    .hub-branch-desc {
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: var(--space-10) 0;
+    }
+    /* Module card deliverables list */
+    .module-deliverables {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-3) 0 0;
+    }
+    .module-deliverables li {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      padding: var(--space-1) 0;
+      padding-left: var(--space-5);
+      position: relative;
+      line-height: 1.5;
+    }
+    .module-deliverables li::before {
+      content: '\2192';
+      position: absolute;
+      left: 0;
+      color: var(--color-primary);
+      font-weight: var(--weight-bold);
+    }
+    /* Module expand */
+    .module-card { cursor: pointer; }
+    .module-toggle {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      color: var(--color-primary);
+      transition: all var(--transition-base);
+    }
+    .module-toggle i {
+      transition: transform var(--transition-base);
+    }
+    .module-card.open .module-toggle i {
+      transform: rotate(180deg);
+    }
+    .module-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .module-card.open .module-details {
+      max-height: 2000px;
+    }
+    .detail-item {
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .detail-item:last-child { border-bottom: none; }
+    .detail-item-title {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+      color: var(--color-dark);
+      margin-bottom: var(--space-1);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .detail-item-title i {
+      color: var(--color-primary);
+      font-size: 0.7rem;
+    }
+    .detail-item-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      padding-left: var(--space-5);
+    }
+
+    /* Info notice */
+    .info-notice {
+      background: var(--color-primary-bg);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-6);
+      margin-top: var(--space-8);
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
+    }
+    .info-notice-icon {
+      color: var(--color-primary);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .info-notice-text {
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body data-page="mission">
+
+  <div id="progress-bar"></div>
+
+  <!-- NAV -->
+  <nav class="nav nav-glass" id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Dan <span class="logo-accent">ELFASSI</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="ecosysteme.html" class="nav-link">&Eacute;cosyst&egrave;me</a>
+        <a href="besoin.html" class="nav-link">Besoin</a>
+        <a href="mission.html" class="nav-link active">Mission</a>
+        <a href="livrables.html" class="nav-link">Livrables</a>
+        <a href="conditions.html" class="nav-link">Conditions</a>
+      </div>
+      <div class="nav-hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="ecosysteme.html" class="nav-link">&Eacute;cosyst&egrave;me</a>
+      <a href="besoin.html" class="nav-link">Besoin</a>
+      <a href="mission.html" class="nav-link active">Mission</a>
+      <a href="livrables.html" class="nav-link">Livrables</a>
+      <a href="conditions.html" class="nav-link">Conditions</a>
+    </div>
+  </nav>
+
+  <!-- HERO MINI -->
+  <section class="hero" style="min-height:40vh; padding-top:120px; padding-bottom:var(--space-12);">
+    <div class="hero-particles" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-content" style="text-align:center; max-width:700px; margin:0 auto;">
+        <p class="hero-eyebrow reveal" data-delay="0"><i class="fa-solid fa-bullseye"></i> D&eacute;finition de la mission</p>
+        <h1 class="hero-title reveal" data-delay="1">La <span class="gradient-text">mission ORRTYL</span></h1>
+        <p class="hero-subtitle reveal" data-delay="2">Vision globale, p&eacute;rim&egrave;tre d&rsquo;intervention et les 8 modules de transformation pour l&rsquo;&eacute;cosyst&egrave;me ELFASSY.</p>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" style="padding-bottom:var(--space-20);">
+
+    <!-- 4.1 VISION GLOBALE -->
+    <section id="vision-globale" style="margin-bottom:var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">4.1</span>
+        <h2 class="section-title">Vision globale</h2>
+        <p class="section-subtitle">L&rsquo;ambition de la mission et l&rsquo;&eacute;cosyst&egrave;me unifi&eacute; &agrave; construire.</p>
+      </div>
+
+      <div class="vision-card reveal" data-delay="1">
+        <p class="vision-lead">L&rsquo;objectif est de remplacer la fragmentation actuelle par un &eacute;cosyst&egrave;me unifi&eacute;, pilot&eacute; depuis un tableau de bord unique.</p>
+        <p class="vision-body">
+          Chaque module peut &ecirc;tre d&eacute;ploy&eacute; ind&eacute;pendamment, selon les priorit&eacute;s valid&eacute;es. La mission s&rsquo;organise en quatre phases successives : Comprendre, Structurer, D&eacute;ployer, Accompagner.
+        </p>
+      </div>
+
+      <!-- 4 phases flowchart -->
+      <div class="phases-flow reveal" data-delay="2">
+        <div class="phase-step">
+          <div class="phase-step-num">Phase 1</div>
+          <div class="phase-step-label">Comprendre</div>
+        </div>
+        <div class="phase-arrow">&rarr;</div>
+        <div class="phase-step">
+          <div class="phase-step-num">Phase 2</div>
+          <div class="phase-step-label">Structurer</div>
+        </div>
+        <div class="phase-arrow">&rarr;</div>
+        <div class="phase-step">
+          <div class="phase-step-num">Phase 3</div>
+          <div class="phase-step-label">D&eacute;ployer</div>
+        </div>
+        <div class="phase-arrow">&rarr;</div>
+        <div class="phase-step">
+          <div class="phase-step-num">Phase 4</div>
+          <div class="phase-step-label">Accompagner</div>
+        </div>
+      </div>
+
+      <!-- Ecosystem hub -->
+      <div class="ecosystem-hub reveal" data-delay="3">
+        <div class="hub-center">
+          <div style="font-size:var(--text-2xl);margin-bottom:var(--space-2);">&#127775;</div>
+          &Eacute;cosyst&egrave;me unifi&eacute; ELFASSY
+        </div>
+        <div class="hub-branches">
+          <div class="hub-branch">
+            <div class="hub-branch-icon"><i class="fa-solid fa-coins"></i></div>
+            <div class="hub-branch-title">Penny Lane</div>
+            <div class="hub-branch-desc">Backbone financier &amp; comptable consolid&eacute;</div>
+          </div>
+          <div class="hub-branch">
+            <div class="hub-branch-icon"><i class="fa-solid fa-address-book"></i></div>
+            <div class="hub-branch-title">CRM sur mesure</div>
+            <div class="hub-branch-desc">C-Lodge &amp; Montagne, gestion commerciale</div>
+          </div>
+          <div class="hub-branch">
+            <div class="hub-branch-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="hub-branch-title">Automatisations</div>
+            <div class="hub-branch-desc">Bots, r&eacute;conciliations, workflows auto</div>
+          </div>
+          <div class="hub-branch">
+            <div class="hub-branch-icon"><i class="fa-solid fa-bullhorn"></i></div>
+            <div class="hub-branch-title">Marketing</div>
+            <div class="hub-branch-desc">Pr&eacute;sence digitale &amp; r&eacute;seaux sociaux</div>
+          </div>
+          <div class="hub-branch">
+            <div class="hub-branch-icon"><i class="fa-solid fa-heart"></i></div>
+            <div class="hub-branch-title">Campagnes &amp; Dons</div>
+            <div class="hub-branch-desc">Plateforme dons, tombola, re&ccedil;us fiscaux</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="validation-widget reveal" data-delay="4">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; Vision globale</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="vision-globale" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="vision-globale">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="vision-globale" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur la vision globale&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 4.2 MODULES -->
+    <section id="modules" style="margin-bottom:var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">4.2</span>
+        <h2 class="section-title">Les 8 modules de la mission</h2>
+        <p class="section-subtitle">Chaque module correspond &agrave; un axe d&rsquo;intervention sp&eacute;cifique avec des livrables d&eacute;finis. Les modules sont ind&eacute;pendants et activables selon vos priorit&eacute;s.</p>
+      </div>
+
+      <div class="grid-2">
+
+        <!-- M1 -->
+        <div class="module-card reveal" data-delay="1" onclick="this.classList.toggle('open')">
+          <div class="module-icon"><i class="fa-solid fa-coins"></i></div>
+          <div class="module-title">M1 &mdash; Penny Lane (Consolid&eacute; groupe)</div>
+          <div class="module-description">D&eacute;ploiement de Penny Lane comme backbone financier et comptable pour toutes les entit&eacute;s. Vue consolid&eacute;e du groupe en temps r&eacute;el.</div>
+          <ul class="module-deliverables">
+            <li>Tr&eacute;sorerie en temps r&eacute;el de tous les comptes</li>
+            <li>Facturation client avec relances automatiques</li>
+            <li>Exports comptables automatiques pour l&rsquo;expert-comptable</li>
+            <li>Cartes bancaires &eacute;quipes (g&eacute;n&eacute;ration instantan&eacute;e, notifications)</li>
+            <li>14 modules Penny Lane activ&eacute;s</li>
+            <li>Coordination avec l&rsquo;expert-comptable existant</li>
+            <li>Dossier de pr&eacute;sentation partenaire financier</li>
+          </ul>
+          <div class="module-toggle"><i class="fa-solid fa-chevron-down"></i> Voir le d&eacute;tail</div>
+          <div class="module-details">
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Tr&eacute;sorerie en temps r&eacute;el</div>
+              <div class="detail-item-desc">Connexion bancaire automatique de toutes les entit&eacute;s (SENDEY EVENTS, CAMI CAMPS, ONE SERVICE, EI Dan, 5 SCI). Visualisation consolid&eacute;e des soldes et mouvements en temps r&eacute;el depuis un seul &eacute;cran.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Facturation client avec relances</div>
+              <div class="detail-item-desc">Cr&eacute;ation de factures depuis Penny Lane, envoi au client avec lien de paiement int&eacute;gr&eacute;. Relances automatiques param&eacute;trables. Suivi des impay&eacute;s en temps r&eacute;el.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Exports comptables automatiques</div>
+              <div class="detail-item-desc">L&rsquo;expert-comptable r&eacute;cup&egrave;re les factures et transactions en un bouton, sans avoir acc&egrave;s &agrave; l&rsquo;ensemble du syst&egrave;me. Plus besoin de maintenir un Drive pour les pi&egrave;ces.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Cartes bancaires &eacute;quipes</div>
+              <div class="detail-item-desc">G&eacute;n&eacute;ration instantan&eacute;e de cartes bleues physiques ou virtuelles pour les collaborateurs (Ari&eacute;, etc.). Plafonds param&eacute;trables. Notification en temps r&eacute;el avec demande de justificatif photo.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> 14 modules Penny Lane</div>
+              <div class="detail-item-desc">Plan comptable personnalis&eacute;, journaux (achats, ventes, banque, OD), r&eacute;f&eacute;rentiel tiers, immobilisations &amp; amortissements, pr&ecirc;ts &amp; cr&eacute;dits-baux, TVA, axes analytiques, facturation, rapprochement bancaire automatique, lettrage, droits d&rsquo;acc&egrave;s, notes de frais, cl&ocirc;ture d&rsquo;exercice, DAS2.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Coordination expert-comptable</div>
+              <div class="detail-item-desc">L&rsquo;expert-comptable reste en place. On ne le remplace pas. Penny Lane facilite son travail : il r&eacute;cup&egrave;re les donn&eacute;es dont il a besoin, valide les &eacute;critures et signe le bilan. Le co&ucirc;t comptable baisse car le travail de saisie est automatis&eacute;.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Dossier partenaire financier</div>
+              <div class="detail-item-desc">Constitution d&rsquo;un dossier de pr&eacute;sentation consolid&eacute; de l&rsquo;&eacute;cosyst&egrave;me ELFASSY &agrave; destination d&rsquo;un partenaire financier (banque, investisseur). Inclut la valorisation du patrimoine SCI fournie par le client.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- M2 -->
+        <div class="module-card reveal" data-delay="2" onclick="this.classList.toggle('open')">
+          <div class="module-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="module-title">M2 &mdash; Gestion tr&eacute;sorerie multi-flux</div>
+          <div class="module-description">Tableau de bord tr&eacute;sorerie consolid&eacute; en temps r&eacute;el. Cat&eacute;gorisation des flux par entit&eacute; et par activit&eacute;.</div>
+          <ul class="module-deliverables">
+            <li>Dashboard tr&eacute;sorerie consolid&eacute; multi-flux</li>
+            <li>Suivi des pr&ecirc;ts internes et transferts inter-structures</li>
+            <li>Exports comptables automatiques</li>
+            <li>Alertes de seuils et pr&eacute;visions</li>
+          </ul>
+          <div class="module-toggle"><i class="fa-solid fa-chevron-down"></i> Voir le d&eacute;tail</div>
+          <div class="module-details">
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Dashboard consolid&eacute; multi-flux</div>
+              <div class="detail-item-desc">Un &eacute;cran unique qui affiche la tr&eacute;sorerie de toutes les structures &mdash; officiel et gestion interne. Cat&eacute;gorisation par structure (SENDEY, CAMI, SCI&hellip;) et par activit&eacute; (colos, village, montagne, traiteur, PESACH).</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Suivi des pr&ecirc;ts internes</div>
+              <div class="detail-item-desc">Gestion des allers-retours entre structures et des pr&ecirc;ts internes. Chaque mouvement inter-structure est trac&eacute; avec le montant, la date et l&rsquo;&eacute;ch&eacute;ance de remboursement pr&eacute;vue. Fini les vases communicants sans visibilit&eacute;.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Exports comptables</div>
+              <div class="detail-item-desc">G&eacute;n&eacute;ration d&rsquo;exports par structure pour l&rsquo;expert-comptable. Les &eacute;l&eacute;ments officiels sont s&eacute;par&eacute;s et transmissibles en un clic, sans exposer la gestion interne.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Alertes et pr&eacute;visions</div>
+              <div class="detail-item-desc">Seuils d&rsquo;alerte param&eacute;trables par compte. Pr&eacute;visionnel de tr&eacute;sorerie pour anticiper les p&eacute;riodes de tension et prendre des d&eacute;cisions en amont.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- M3 -->
+        <div class="module-card reveal" data-delay="3" onclick="this.classList.toggle('open')">
+          <div class="module-icon"><i class="fa-solid fa-address-book"></i></div>
+          <div class="module-title">M3 &mdash; CRM C-Lodge &amp; Montagne</div>
+          <div class="module-description">Centralisation de la gestion commerciale du village de vacances et du chalet montagne. Devis automatis&eacute;s, planification des r&eacute;servations, historique clients.</div>
+          <ul class="module-deliverables">
+            <li>Syst&egrave;me de devis automatis&eacute; (groupes vs individuels)</li>
+            <li>Planning de r&eacute;servations avec disponibilit&eacute;s</li>
+            <li>Gestion des chambres et du chalet</li>
+            <li>Relances automatiques de suivi</li>
+            <li>Base de donn&eacute;es et historique clients</li>
+            <li>Flux diff&eacute;renci&eacute;s par type de client</li>
+          </ul>
+          <div class="module-toggle"><i class="fa-solid fa-chevron-down"></i> Voir le d&eacute;tail</div>
+          <div class="module-details">
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Devis automatis&eacute; (groupes vs particuliers)</div>
+              <div class="detail-item-desc">Le client clique &laquo;&nbsp;je suis un groupe&nbsp;&raquo; ou &laquo;&nbsp;je suis un particulier&nbsp;&raquo; et le syst&egrave;me adapte les questions, les options et le tarif. Le devis se g&eacute;n&egrave;re automatiquement avec les boutons d&rsquo;options (semaines, options repas, activit&eacute;s). Envoi direct au client.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Planning de r&eacute;servations</div>
+              <div class="detail-item-desc">Vue calendrier des disponibilit&eacute;s par semaine. Quand un devis est accept&eacute;, la r&eacute;servation bloque automatiquement les dates. Permet de voir en un clin d&rsquo;&oelig;il les semaines libres, optionn&eacute;es et confirm&eacute;es.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Gestion des chambres et du chalet</div>
+              <div class="detail-item-desc">Inventaire des chambres/chalets avec capacit&eacute;, &eacute;quipements et tarifs. Attribution automatique lors de la r&eacute;servation. Vue d&rsquo;occupation en temps r&eacute;el.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Relances automatiques</div>
+              <div class="detail-item-desc">Quand un devis est envoy&eacute; et qu&rsquo;il n&rsquo;y a pas de retour, le syst&egrave;me relance automatiquement. Dan n&rsquo;oublie plus un devis en cours &mdash; fini les opportunit&eacute;s perdues comme il l&rsquo;a mentionn&eacute; en r&eacute;union.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Base de donn&eacute;es clients</div>
+              <div class="detail-item-desc">Historique complet de chaque client : r&eacute;servations pass&eacute;es, pr&eacute;f&eacute;rences, montants. Permet de relancer les clients existants pour les prochaines saisons (hiver, &eacute;t&eacute;, PESACH, Shabbatones).</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Flux diff&eacute;renci&eacute;s par type de client</div>
+              <div class="detail-item-desc">Parcours diff&eacute;rent pour les &eacute;coles (devis groupe, contact t&eacute;l&eacute;phonique, paiement diff&eacute;r&eacute;), les particuliers (r&eacute;servation en ligne, carte bleue ou contact &eacute;quipe), et les groupes Shabbat (options sp&eacute;cifiques).</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- M4 -->
+        <div class="module-card reveal" data-delay="4" onclick="this.classList.toggle('open')">
+          <div class="module-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="module-title">M4 &mdash; Automatisations</div>
+          <div class="module-description">Bot Telegram connect&eacute; au CRM (notes vocales &rarr; donn&eacute;es structur&eacute;es). Photos de factures &rarr; rapprochement bancaire automatique.</div>
+          <ul class="module-deliverables">
+            <li>Bot Telegram &harr; CRM (notes vocales)</li>
+            <li>Rapprochement bancaire automatique sur photo de facture</li>
+            <li>Bot FAQ parents (base de connaissances)</li>
+            <li>Notifications cartes bancaires &eacute;quipes</li>
+            <li>Workflows automatis&eacute;s (inscriptions, relances, suivis)</li>
+          </ul>
+          <div class="module-toggle"><i class="fa-solid fa-chevron-down"></i> Voir le d&eacute;tail</div>
+          <div class="module-details">
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Bot Telegram &harr; CRM</div>
+              <div class="detail-item-desc">Dan envoie une note vocale sur Telegram : &laquo;&nbsp;J&eacute;r&eacute;my Bousna vient de me pr&ecirc;ter 5 000 que je dois lui rendre en septembre&nbsp;&raquo;. Le bot retranscrit, identifie la personne dans la base, cr&eacute;e la ligne dans le CRM avec le montant, la date et l&rsquo;&eacute;ch&eacute;ance. Si la personne n&rsquo;existe pas, il demande confirmation avant de la cr&eacute;er.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Photos de factures &rarr; rapprochement</div>
+              <div class="detail-item-desc">Dan prend en photo un ticket ou une facture via Telegram. Le syst&egrave;me reconna&icirc;t le fournisseur, le montant TTC/HT, la date, et rapproche automatiquement avec la transaction bancaire correspondante. Dan ne traite que les cas o&ugrave; il y a un doute.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Bot FAQ parents</div>
+              <div class="detail-item-desc">Les parents envoient un WhatsApp &agrave; Mahane Israel. Au lieu de mobiliser une personne, le bot r&eacute;pond aux questions fr&eacute;quentes (horaires, trousseau, d&eacute;parts, etc.) &agrave; partir d&rsquo;une base de connaissances construite avec Dan. Les questions complexes sont redirig&eacute;es vers l&rsquo;&eacute;quipe.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Notifications cartes bancaires</div>
+              <div class="detail-item-desc">Quand un collaborateur utilise sa carte bleue Penny Lane, il re&ccedil;oit une notification imm&eacute;diate lui demandant de prendre en photo le justificatif. Le rapprochement se fait automatiquement.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Workflows automatis&eacute;s</div>
+              <div class="detail-item-desc">Automatisation des t&acirc;ches r&eacute;p&eacute;titives : envoi de confirmations d&rsquo;inscription, rappels de paiement, relances devis, notifications &eacute;quipe. Chaque workflow est construit selon les cas d&rsquo;usage sp&eacute;cifiques de Dan.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- M5 -->
+        <div class="module-card reveal" data-delay="5" onclick="this.classList.toggle('open')">
+          <div class="module-icon"><i class="fa-solid fa-bullhorn"></i></div>
+          <div class="module-title">M5 &mdash; Marketing &amp; R&eacute;seaux sociaux</div>
+          <div class="module-description">Audit de la pr&eacute;sence digitale. Strat&eacute;gie de contenu par marque. Planning de publication automatis&eacute; sur Insta, FB et TikTok.</div>
+          <ul class="module-deliverables">
+            <li>Audit pr&eacute;sence digitale</li>
+            <li>Strat&eacute;gie de contenu par marque</li>
+            <li>Planning de publication automatis&eacute; (Insta, FB, TikTok)</li>
+            <li>Templates de posts r&eacute;utilisables</li>
+            <li>Sessions de planning mensuelles</li>
+            <li>Reporting et analytics</li>
+          </ul>
+          <div class="module-toggle"><i class="fa-solid fa-chevron-down"></i> Voir le d&eacute;tail</div>
+          <div class="module-details">
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Audit pr&eacute;sence digitale</div>
+              <div class="detail-item-desc">&Eacute;tat des lieux des sites (mahaneisrael.com, signature-kosher.com), des r&eacute;seaux sociaux existants et de la visibilit&eacute; en ligne de chaque marque. C-Lodge n&rsquo;a pas de site internet ni de r&eacute;seaux &mdash; c&rsquo;est une opportunit&eacute; majeure.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Strat&eacute;gie de contenu par marque</div>
+              <div class="detail-item-desc">Chaque marque a son positionnement et sa cible. Mahane Israel parle aux parents de la communaut&eacute;, Signature Kosher &agrave; une client&egrave;le haut de gamme, C-Lodge aux familles et groupes. Le contenu est adapt&eacute; &agrave; chaque audience.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Planning de publications</div>
+              <div class="detail-item-desc">On se pose une fois par mois, on planifie tous les posts pour le mois. Les publications partent automatiquement aux dates pr&eacute;vues sur Insta, Facebook et TikTok. Dan g&egrave;re les stories, le reste est automatis&eacute;.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Templates r&eacute;utilisables</div>
+              <div class="detail-item-desc">Biblioth&egrave;que de templates graphiques par marque, pr&ecirc;ts &agrave; &ecirc;tre personnalis&eacute;s. Gain de temps consid&eacute;rable pour la production de contenu r&eacute;gulier.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Sessions mensuelles</div>
+              <div class="detail-item-desc">Un rendez-vous mensuel d&eacute;di&eacute; au marketing : revue des performances, planification du mois suivant, nouveaut&eacute;s &agrave; int&eacute;grer. C&rsquo;est dans ce cadre qu&rsquo;on d&eacute;cide quoi poster, quand et sur quelle plateforme.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Reporting et analytics</div>
+              <div class="detail-item-desc">Suivi des m&eacute;triques cl&eacute;s : port&eacute;e, engagement, clics, conversions. Permet de savoir ce qui fonctionne et d&rsquo;ajuster la strat&eacute;gie en cons&eacute;quence.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- M6 -->
+        <div class="module-card reveal" data-delay="6" onclick="this.classList.toggle('open')">
+          <div class="module-icon"><i class="fa-solid fa-plug"></i></div>
+          <div class="module-title">M6 &mdash; Interface AlloColo</div>
+          <div class="module-description">Analyse de l&rsquo;API AlloColo (si disponible). Connecteur CRM &harr; AlloColo pour alimenter le tableau de bord unifi&eacute;.</div>
+          <ul class="module-deliverables">
+            <li>Analyse de l&rsquo;API AlloColo</li>
+            <li>Connecteur CRM &harr; AlloColo</li>
+            <li>Donn&eacute;es d&rsquo;inscription int&eacute;gr&eacute;es au dashboard</li>
+          </ul>
+          <div class="module-toggle"><i class="fa-solid fa-chevron-down"></i> Voir le d&eacute;tail</div>
+          <div class="module-details">
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Analyse de l&rsquo;API AlloColo</div>
+              <div class="detail-item-desc">AlloColo est la plateforme d&rsquo;inscription utilis&eacute;e pour les colos (1 000 &euro;/an). Le d&eacute;veloppeur est accessible et r&eacute;actif. On analyse si une API publique est disponible ou si on peut obtenir un acc&egrave;s pour remonter les donn&eacute;es d&rsquo;inscription.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Connecteur CRM &harr; AlloColo</div>
+              <div class="detail-item-desc">Si l&rsquo;API est disponible, on cr&eacute;e un connecteur qui remonte automatiquement les inscriptions, les infos enfants et les paiements dans le tableau de bord unifi&eacute;. AlloColo reste en place &mdash; on ne le remplace pas.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Int&eacute;gration au dashboard</div>
+              <div class="detail-item-desc">Les donn&eacute;es d&rsquo;inscription apparaissent dans le tableau de bord consolid&eacute;, permettant &agrave; Dan d&rsquo;avoir une vue compl&egrave;te de toutes ses activit&eacute;s depuis un seul endroit.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- M7 -->
+        <div class="module-card reveal" data-delay="7" onclick="this.classList.toggle('open')">
+          <div class="module-icon"><i class="fa-solid fa-heart"></i></div>
+          <div class="module-title">M7 &mdash; Campagnes &amp; Dons</div>
+          <div class="module-description">Plateforme de dons sur mesure (Stripe/Link). Pages de campagne avec mur de donateurs. Gestion int&eacute;gr&eacute;e des tombolas.</div>
+          <ul class="module-deliverables">
+            <li>Plateforme de dons personnalis&eacute;e (Stripe/Link)</li>
+            <li>Pages de campagne avec mur de donateurs</li>
+            <li>Gestion int&eacute;gr&eacute;e des tombolas</li>
+            <li>Syst&egrave;me de promesses de dons avec relances</li>
+            <li>Re&ccedil;us fiscaux automatis&eacute;s</li>
+            <li>0&nbsp;% de frais de transaction</li>
+          </ul>
+          <div class="module-toggle"><i class="fa-solid fa-chevron-down"></i> Voir le d&eacute;tail</div>
+          <div class="module-details">
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Plateforme de dons (Stripe/Link)</div>
+              <div class="detail-item-desc">Plateforme personnalis&eacute;e en marque blanche pour Mahane Israel. Les donateurs paient via Stripe Link (paiement en un clic). 0 % de frais de campagne, 0 % de frais Stripe &mdash; 100 % de l&rsquo;argent arrive dans la poche de l&rsquo;association.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Pages de campagne &amp; mur de donateurs</div>
+              <div class="detail-item-desc">Ouverture et fermeture de campagnes &agrave; volont&eacute;. Chaque campagne a sa page avec vid&eacute;os, ambassadeurs, objectif de collecte et mur de donateurs en temps r&eacute;el.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Tombola int&eacute;gr&eacute;e</div>
+              <div class="detail-item-desc">Gestion des tombolas directement depuis la plateforme. Vente de billets en ligne, tirage au sort, notification aux gagnants.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Promesses de dons avec relances</div>
+              <div class="detail-item-desc">Gestion des promesses de dons. Le syst&egrave;me relance automatiquement : &laquo;&nbsp;Vous avez fait telle promesse de don, veuillez proc&eacute;der au paiement.&nbsp;&raquo; Plus besoin de suivi manuel.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Re&ccedil;us fiscaux automatis&eacute;s</div>
+              <div class="detail-item-desc">G&eacute;n&eacute;ration automatique des re&ccedil;us fiscaux (Cerfa) pour chaque don. Envoi par email au donateur. Archivage dans le syst&egrave;me.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- M8 -->
+        <div class="module-card reveal" data-delay="8" onclick="this.classList.toggle('open')">
+          <div class="module-icon"><i class="fa-solid fa-credit-card"></i></div>
+          <div class="module-title">M8 &mdash; Cartes bleues &eacute;quipes</div>
+          <div class="module-description">G&eacute;n&eacute;ration de cartes bancaires physiques et virtuelles pour les &eacute;quipes. Plafonds et restrictions param&eacute;trables par carte.</div>
+          <ul class="module-deliverables">
+            <li>G&eacute;n&eacute;ration de cartes physiques et virtuelles</li>
+            <li>Plafonds et restrictions par carte</li>
+            <li>Notifications en temps r&eacute;el avec demande de justificatif</li>
+            <li>Rapprochement automatique dans Penny Lane</li>
+          </ul>
+          <div class="module-toggle"><i class="fa-solid fa-chevron-down"></i> Voir le d&eacute;tail</div>
+          <div class="module-details">
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> G&eacute;n&eacute;ration de cartes</div>
+              <div class="detail-item-desc">En un clic, Dan g&eacute;n&egrave;re une carte bleue pour un collaborateur (Ari&eacute;, Giulia, etc.). Carte physique ou virtuelle. Jusqu&rsquo;&agrave; 150 cartes gratuites. Possibilit&eacute; de cr&eacute;er des cartes temporaires pour des &eacute;v&eacute;nements sp&eacute;cifiques.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Plafonds et restrictions</div>
+              <div class="detail-item-desc">Dan d&eacute;cide les limitations par carte : plafond journalier, mensuel, cat&eacute;gories de d&eacute;penses autoris&eacute;es. Contr&ocirc;le total sur qui d&eacute;pense quoi et combien.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Notifications temps r&eacute;el</div>
+              <div class="detail-item-desc">&Agrave; chaque utilisation de la carte, le collaborateur re&ccedil;oit une notification lui demandant de photographier le justificatif. Dan voit la d&eacute;pense en temps r&eacute;el.</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-title"><i class="fa-solid fa-circle"></i> Rapprochement Penny Lane</div>
+              <div class="detail-item-desc">La d&eacute;pense, le justificatif et la transaction bancaire sont rapproch&eacute;s automatiquement dans Penny Lane. Plus de saisie manuelle, plus de tickets perdus.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="info-notice reveal" data-delay="9">
+        <div class="info-notice-icon"><i class="fa-solid fa-circle-info"></i></div>
+        <p class="info-notice-text">Ces modules sont ind&eacute;pendants et activables selon vos priorit&eacute;s. L&rsquo;ordre et le rythme de d&eacute;ploiement seront d&eacute;finis ensemble au fil de la mission.</p>
+      </div>
+
+      <div class="validation-widget reveal" data-delay="10" style="margin-top:var(--space-8);">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; Modules</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="modules" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="modules">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="modules" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur les modules&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--color-dark);color:rgba(255,255,255,0.6);text-align:center;padding:var(--space-10) var(--space-4);">
+    <div class="container">
+      <p style="font-size:var(--text-sm);margin-bottom:var(--space-2);">
+        <a href="index.html" style="color:rgba(255,255,255,0.8);text-decoration:none;font-weight:var(--weight-semibold);">Dan <span style="color:var(--color-primary-light);">ELFASSI</span></a>
+        &nbsp;&mdash;&nbsp;
+        <a href="ecosysteme.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">&Eacute;cosyst&egrave;me</a> &middot;
+        <a href="besoin.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Besoin</a> &middot;
+        <a href="mission.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Mission</a> &middot;
+        <a href="livrables.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Livrables</a> &middot;
+        <a href="conditions.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Conditions</a>
+      </p>
+      <p style="font-size:var(--text-xs);color:rgba(255,255,255,0.35);">Document confidentiel &mdash; usage exclusif Dan ELFASSI &amp; ORRTYL &mdash; &copy; 2026</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp FAB -->
+  <div class="whatsapp-fab">
+    <div class="whatsapp-fab-label">Une question ?</div>
+    <a href="https://wa.me/33763662002" target="_blank" rel="noopener" class="whatsapp-fab-btn" aria-label="Contacter via WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const pb = document.getElementById('progress-bar');
+    if (pb) {
+      window.addEventListener('scroll', () => {
+        const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        pb.style.width = Math.min(pct, 100) + '%';
+      }, { passive: true });
+    }
+    const nav = document.getElementById('main-nav');
+    if (nav) {
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      }, { passive: true });
+    }
+    const hb = document.getElementById('hamburger');
+    const nm = document.getElementById('nav-mobile');
+    if (hb && nm) {
+      hb.addEventListener('click', () => {
+        hb.classList.toggle('open');
+        nm.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>

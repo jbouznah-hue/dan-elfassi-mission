@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&Eacute;cosyst&egrave;me &mdash; Dan ELFASSI | ORRTYL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .entity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .entity-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+    }
+    .entity-card.root-card {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, var(--color-primary-bg), var(--color-card-bg));
+      border-color: var(--color-primary);
+    }
+    .entity-type {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+    .entity-name {
+      font-size: var(--text-base);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+      margin-bottom: var(--space-1);
+    }
+    .entity-desc {
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+    .entity-label {
+      display: inline-block;
+      margin-top: var(--space-2);
+      padding: 2px 10px;
+      background: var(--color-primary-bg);
+      color: var(--color-primary);
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+    }
+    .brand-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .brand-icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+    .brand-name {
+      font-size: var(--text-base);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+    }
+    .brand-entity {
+      font-size: var(--text-xs);
+      color: var(--color-primary);
+      font-weight: var(--weight-semibold);
+    }
+    .brand-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+    .tool-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .tool-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: var(--color-primary-bg);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .tool-name {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+      color: var(--color-dark);
+    }
+    .tool-desc {
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+    }
+    .finance-kpi {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      text-align: center;
+    }
+    .finance-kpi.danger { border-color: #ef4444; }
+    .finance-kpi.warning { border-color: #f59e0b; }
+    .finance-kpi-value {
+      font-size: var(--text-3xl);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+      margin-bottom: var(--space-1);
+    }
+    .finance-kpi.danger .finance-kpi-value { color: #ef4444; }
+    .finance-kpi.warning .finance-kpi-value { color: #f59e0b; }
+    .finance-kpi-label {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+    .verbatim-group { margin-bottom: var(--space-8); }
+    .verbatim-group-title {
+      font-size: var(--text-sm);
+      font-weight: var(--weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    blockquote.verbatim {
+      background: var(--color-card-bg);
+      border-left: 4px solid var(--color-primary);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      padding: var(--space-5) var(--space-6);
+      margin: 0 0 var(--space-4);
+      font-style: italic;
+      color: var(--color-text);
+      line-height: 1.7;
+    }
+    blockquote.verbatim cite {
+      display: block;
+      margin-top: var(--space-2);
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+      font-style: normal;
+      font-weight: var(--weight-semibold);
+    }
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: var(--space-10) 0;
+    }
+  </style>
+</head>
+<body data-page="ecosysteme">
+
+  <div id="progress-bar"></div>
+
+  <!-- NAV -->
+  <nav class="nav nav-glass" id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Dan <span class="logo-accent">ELFASSI</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="ecosysteme.html" class="nav-link active">&Eacute;cosyst&egrave;me</a>
+        <a href="besoin.html" class="nav-link">Besoin</a>
+        <a href="mission.html" class="nav-link">Mission</a>
+        <a href="livrables.html" class="nav-link">Livrables</a>
+        <a href="conditions.html" class="nav-link">Conditions</a>
+      </div>
+      <div class="nav-hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="ecosysteme.html" class="nav-link active">&Eacute;cosyst&egrave;me</a>
+      <a href="besoin.html" class="nav-link">Besoin</a>
+      <a href="mission.html" class="nav-link">Mission</a>
+      <a href="livrables.html" class="nav-link">Livrables</a>
+      <a href="conditions.html" class="nav-link">Conditions</a>
+    </div>
+  </nav>
+
+  <!-- HERO MINI -->
+  <section class="hero" style="min-height:40vh; padding-top: 120px; padding-bottom: var(--space-12);">
+    <div class="hero-particles" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-content" style="text-align:center; max-width:700px; margin:0 auto;">
+        <p class="hero-eyebrow reveal" data-delay="0"><i class="fa-solid fa-diagram-project"></i> &Eacute;cosyst&egrave;me actuel</p>
+        <h1 class="hero-title reveal" data-delay="1">Cartographie de <span class="gradient-text">l&rsquo;&eacute;cosyst&egrave;me</span></h1>
+        <p class="hero-subtitle reveal" data-delay="2">Structures juridiques, marques, outils et situation financi&egrave;re &mdash; &eacute;tat des lieux complet pour alimenter la mission de transformation.</p>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" style="padding-bottom: var(--space-20);">
+
+    <!-- 2.1 CARTOGRAPHIE JURIDIQUE -->
+    <section id="juridique" style="margin-bottom: var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">2.1</span>
+        <h2 class="section-title">Cartographie juridique</h2>
+        <p class="section-subtitle">L&rsquo;ensemble des structures op&eacute;rationnelles et patrimoniales contr&ocirc;l&eacute;es par Dan &amp; Emma ELFASSY.</p>
+      </div>
+
+      <div class="entity-grid">
+        <div class="entity-card root-card reveal" data-delay="1">
+          <div class="entity-type">Personnes physiques &mdash; T&ecirc;te de groupe</div>
+          <div class="entity-name" style="font-size: var(--text-xl);">Dan &amp; Emma ELFASSY</div>
+          <div class="entity-desc">Associ&eacute;s &amp; dirigeants de toutes les structures</div>
+        </div>
+      </div>
+
+      <h3 class="reveal" data-delay="2" style="font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--color-text-secondary);margin:var(--space-8) 0 var(--space-4);text-transform:uppercase;letter-spacing:0.06em;">Structures op&eacute;rationnelles</h3>
+      <div class="entity-grid">
+        <div class="entity-card reveal" data-delay="3" style="position:relative;">
+          <div class="entity-type">SAS</div>
+          <div class="entity-name">SENDEY EVENTS</div>
+          <div class="entity-desc">822 114 880 &mdash; &Eacute;v&eacute;nementiel, s&eacute;jours, colos, traiteur<br>Enseigne&nbsp;: Privilege Traiteur / Privilege Organisation<br>Pr&eacute;sidente&nbsp;: Emma Berrebi (ELFASSY)</div>
+          <span class="entity-label">Op&eacute;rationnel</span>
+          <span title="Actif net &lt; 1/2 capital depuis octobre 2022" style="position:absolute;top:var(--space-3);right:var(--space-3);cursor:help;font-size:0.85rem;color:#f59e0b;">&#9888;</span>
+        </div>
+        <div class="entity-card reveal" data-delay="4">
+          <div class="entity-type">Association</div>
+          <div class="entity-name">CAMI CAMPS</div>
+          <div class="entity-desc">823 392 261 &mdash; Colos / mouvement de jeunesse<br>= Mahane Israel<br>3&ndash;5 salari&eacute;s</div>
+          <span class="entity-label">Op&eacute;rationnel</span>
+        </div>
+        <div class="entity-card reveal" data-delay="5">
+          <div class="entity-type">SASU</div>
+          <div class="entity-name">ONE SERVICE</div>
+          <div class="entity-desc">919 758 094 &mdash; Conseil communication<br><em style="color:var(--color-text-secondary);">&agrave; clarifier avec Dan</em></div>
+          <span class="entity-label">Op&eacute;rationnel</span>
+        </div>
+        <div class="entity-card reveal" data-delay="6">
+          <div class="entity-type">Entreprise Individuelle</div>
+          <div class="entity-name">ELFASSY DAN</div>
+          <div class="entity-desc">808 798 649 &mdash; Conseil en gestion</div>
+          <span class="entity-label">Op&eacute;rationnel</span>
+        </div>
+      </div>
+
+      <h3 class="reveal" data-delay="7" style="font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--color-text-secondary);margin:var(--space-8) 0 var(--space-4);text-transform:uppercase;letter-spacing:0.06em;">Soci&eacute;t&eacute;s Civiles Immobili&egrave;res</h3>
+      <div class="entity-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));">
+        <div class="entity-card reveal" data-delay="8">
+          <div class="entity-type">SCI</div>
+          <div class="entity-name">SCI YERRES</div>
+          <div class="entity-desc" style="font-size:var(--text-xs);color:var(--color-text-secondary);">889 592 705</div>
+          <span class="entity-label">Patrimonial</span>
+        </div>
+        <div class="entity-card reveal" data-delay="9">
+          <div class="entity-type">SCI</div>
+          <div class="entity-name">SCI YD INVEST</div>
+          <div class="entity-desc" style="font-size:var(--text-xs);color:var(--color-text-secondary);">907 990 931</div>
+          <span class="entity-label">Patrimonial</span>
+        </div>
+        <div class="entity-card reveal" data-delay="10">
+          <div class="entity-type">SCI</div>
+          <div class="entity-name">SCI YDEMM</div>
+          <div class="entity-desc" style="font-size:var(--text-xs);color:var(--color-text-secondary);">903 156 693</div>
+          <span class="entity-label">Patrimonial</span>
+        </div>
+        <div class="entity-card reveal" data-delay="11">
+          <div class="entity-type">SCI</div>
+          <div class="entity-name">SCI THOLLON</div>
+          <div class="entity-desc" style="font-size:var(--text-xs);color:var(--color-text-secondary);">933 302 796 &mdash; chalet montagne (Thollon-les-M&eacute;mises)</div>
+          <span class="entity-label">Patrimonial</span>
+        </div>
+        <div class="entity-card reveal" data-delay="12">
+          <div class="entity-type">SCI</div>
+          <div class="entity-name">SCI SMEL IMMO</div>
+          <div class="entity-desc" style="font-size:var(--text-xs);color:var(--color-text-secondary);">814 254 710 &mdash; via Emma</div>
+          <span class="entity-label">Patrimonial</span>
+        </div>
+      </div>
+
+      <div class="validation-widget reveal" data-delay="13" style="margin-top:var(--space-8);">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; Cartographie juridique</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="juridique" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="juridique">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="juridique" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur la cartographie juridique&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 2.2 MARQUES & ACTIVITÉS -->
+    <section id="marques" style="margin-bottom: var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">2.2</span>
+        <h2 class="section-title">Marques &amp; Activit&eacute;s</h2>
+        <p class="section-subtitle">Les marques commerciales port&eacute;es par l&rsquo;&eacute;cosyst&egrave;me ELFASSY &mdash; ce ne sont pas des entit&eacute;s juridiques.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="brand-card reveal" data-delay="1">
+          <div class="brand-icon">&#127957;</div>
+          <div class="brand-name">Mahane Israel</div>
+          <div class="brand-entity">via CAMI CAMPS</div>
+          <div class="brand-desc">Colos gar&ccedil;ons/filles 6&ndash;17 ans &mdash; 40+ ans d&rsquo;histoire. Lieux&nbsp;: Sacy, Thollon-les-M&eacute;mises/Evian, Espagne, Chypre, Isra&euml;l. Glatt Cach&eacute;r. Site&nbsp;: mahaneisrael.com. Outil&nbsp;: AlloColo (1000&euro;/an). Mouvement de jeunesse historique en sommeil (~10 ans, r&eacute;activable).</div>
+        </div>
+        <div class="brand-card reveal" data-delay="2">
+          <div class="brand-icon">&#10024;</div>
+          <div class="brand-name">Signature Kosher</div>
+          <div class="brand-entity">via SENDEY EVENTS</div>
+          <div class="brand-desc">S&eacute;jours PESACH haut de gamme, adults-only (+12 ans). Anciennement &laquo;&nbsp;Privilege&nbsp;&raquo;. 12 ans. H&ocirc;tels internationaux (Cr&egrave;te 2026). Glatt Cach&eacute;r Beth Din Nice. Site&nbsp;: signature-kosher.com. Direction op&eacute;rationnelle&nbsp;: Emma ELFASSY.</div>
+        </div>
+        <div class="brand-card reveal" data-delay="3">
+          <div class="brand-icon">&#127965;</div>
+          <div class="brand-name">C-Lodge</div>
+          <div class="brand-entity">Village vacances &mdash; Propri&eacute;taire des murs&nbsp;: Mendy</div>
+          <div class="brand-desc">Shabbatones, familles, groupes, &eacute;coles. Sous-exploit&eacute;&nbsp;: pas de site internet, pas de r&eacute;seaux. Marge actuelle ~100K&euro;/an, objectif 200K+.</div>
+        </div>
+        <div class="brand-card reveal" data-delay="4">
+          <div class="brand-icon">&#9968;</div>
+          <div class="brand-name">Chalet Montagne</div>
+          <div class="brand-entity">SCI THOLLON &mdash; Dan propri&eacute;taire</div>
+          <div class="brand-desc">Thollon-les-M&eacute;mises, Haute-Savoie. Hiver (ski, Shabbatones lyonnais), &Eacute;t&eacute; (familles), PESACH. Marge ~120&ndash;130K&euro;/an.</div>
+        </div>
+        <div class="brand-card reveal" data-delay="5" style="border-color:#f59e0b;">
+          <div class="brand-icon">&#127859;</div>
+          <div class="brand-name">Traiteur</div>
+          <div class="brand-entity">SENDEY EVENTS (enseigne Privilege Traiteur)</div>
+          <div class="brand-desc" style="color:#f59e0b;font-weight:var(--weight-semibold);">&#9888; EN ARBITRAGE &mdash; Dan envisage de recentrer son &eacute;nergie.</div>
+        </div>
+      </div>
+
+      <div class="validation-widget reveal" data-delay="6" style="margin-top:var(--space-8);">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; Marques &amp; Activit&eacute;s</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="marques" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="marques">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="marques" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur les marques&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 2.3 OUTILS ACTUELS -->
+    <section id="outils" style="margin-bottom: var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">2.3</span>
+        <h2 class="section-title">Outils actuels</h2>
+        <p class="section-subtitle">Logiciels, plateformes et supports utilis&eacute;s dans l&rsquo;&eacute;cosyst&egrave;me.</p>
+      </div>
+
+      <div class="grid-4">
+        <div class="tool-card reveal" data-delay="1">
+          <div class="tool-icon"><i class="fa-solid fa-child-reaching"></i></div>
+          <div>
+            <div class="tool-name">AlloColo</div>
+            <div class="tool-desc">Inscriptions colos (1000&euro;/an, phase pilote, API potentielle)</div>
+          </div>
+        </div>
+        <div class="tool-card reveal" data-delay="2">
+          <div class="tool-icon"><i class="fa-solid fa-file-excel"></i></div>
+          <div>
+            <div class="tool-name">Excel</div>
+            <div class="tool-desc">Gestion financi&egrave;re / tr&eacute;sorerie &mdash; PAS temps r&eacute;el, maintenance lourde</div>
+          </div>
+        </div>
+        <div class="tool-card reveal" data-delay="3">
+          <div class="tool-icon"><i class="fa-solid fa-wpforms"></i></div>
+          <div>
+            <div class="tool-name">JotForm</div>
+            <div class="tool-desc">Formulaires divers &mdash; donn&eacute;es non connect&eacute;es</div>
+          </div>
+        </div>
+        <div class="tool-card reveal" data-delay="4">
+          <div class="tool-icon"><i class="fa-brands fa-google-drive"></i></div>
+          <div>
+            <div class="tool-name">Drive</div>
+            <div class="tool-desc">Stockage documents &mdash; multiplication des supports</div>
+          </div>
+        </div>
+        <div class="tool-card reveal" data-delay="5">
+          <div class="tool-icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <div>
+            <div class="tool-name">WhatsApp</div>
+            <div class="tool-desc">Communication parents/clients &mdash; pas de suivi structur&eacute;</div>
+          </div>
+        </div>
+        <div class="tool-card reveal" data-delay="6">
+          <div class="tool-icon"><i class="fa-brands fa-wordpress"></i></div>
+          <div>
+            <div class="tool-name">WordPress &mdash; mahaneisrael.com</div>
+            <div class="tool-desc">Vitrine colos</div>
+          </div>
+        </div>
+        <div class="tool-card reveal" data-delay="7">
+          <div class="tool-icon"><i class="fa-brands fa-wordpress"></i></div>
+          <div>
+            <div class="tool-name">WordPress &mdash; signature-kosher.com</div>
+            <div class="tool-desc">Vitrine PESACH, fonctionnel</div>
+          </div>
+        </div>
+        <div class="tool-card reveal" data-delay="8">
+          <div class="tool-icon"><i class="fa-solid fa-book"></i></div>
+          <div>
+            <div class="tool-name">Cahier papier</div>
+            <div class="tool-desc">Gestion t&acirc;ches Dan &mdash; cahier de d&eacute;veloppement par projet, listes mensuelles/hebdo/quotidiennes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice notice-warning reveal" data-delay="9" style="margin-top:var(--space-6);">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <strong>Diagnostic&nbsp;:</strong> Fragmentation des outils, aucune vision consolid&eacute;e, processus manuels chronophages, pas de donn&eacute;es temps r&eacute;el.
+      </div>
+
+      <div class="validation-widget reveal" data-delay="10" style="margin-top:var(--space-8);">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; Outils actuels</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="outils" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="outils">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="outils" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur les outils&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 2.4 SITUATION FINANCIÈRE -->
+    <section id="finances" style="margin-bottom: var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">2.4</span>
+        <h2 class="section-title">Situation financi&egrave;re</h2>
+        <p class="section-subtitle">&Eacute;tat des lieux consolid&eacute; &mdash; base de travail pour la mission de transformation.</p>
+      </div>
+
+      <div class="grid-4" style="margin-bottom:var(--space-6);">
+        <div class="finance-kpi danger reveal" data-delay="1">
+          <div class="finance-kpi-value">600K&euro;</div>
+          <div class="finance-kpi-label">Dette totale<br><small style="font-size:var(--text-xs);font-weight:normal;">200K factures + 400K divers</small></div>
+        </div>
+        <div class="finance-kpi warning reveal" data-delay="2">
+          <div class="finance-kpi-value">280&ndash;300K&euro;</div>
+          <div class="finance-kpi-label">Marge actuelle<br><small style="font-size:var(--text-xs);font-weight:normal;">Village + Montagne + Colos</small></div>
+        </div>
+        <div class="finance-kpi reveal" data-delay="3">
+          <div class="finance-kpi-value">400K&euro;</div>
+          <div class="finance-kpi-label">Objectif marge brute annuelle</div>
+        </div>
+        <div class="finance-kpi danger reveal" data-delay="4">
+          <div class="finance-kpi-value">~100&ndash;120K&euro;</div>
+          <div class="finance-kpi-label">Gap &agrave; combler par an</div>
+        </div>
+      </div>
+
+      <div class="reveal" data-delay="5" style="background:var(--color-card-bg);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);margin-bottom:var(--space-6);">
+        <h4 style="font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--color-dark);margin-bottom:var(--space-4);">D&eacute;tail marge actuelle</h4>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-3);background:var(--color-page-bg);border-radius:var(--radius-md);">
+            <span style="font-size:var(--text-sm);color:var(--color-text);">C-Lodge (village vacances)</span>
+            <span style="font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--color-dark);">~100K&euro;/an</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-3);background:var(--color-page-bg);border-radius:var(--radius-md);">
+            <span style="font-size:var(--text-sm);color:var(--color-text);">Chalet Montagne (SCI THOLLON)</span>
+            <span style="font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--color-dark);">~120&ndash;130K&euro;/an</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-3);background:var(--color-page-bg);border-radius:var(--radius-md);">
+            <span style="font-size:var(--text-sm);color:var(--color-text);">Colos (Mahane Israel)</span>
+            <span style="font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--color-dark);">~60&ndash;70K&euro;/an</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" data-delay="6" style="background:var(--color-card-bg);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);margin-bottom:var(--space-6);">
+        <h4 style="font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--color-dark);margin-bottom:var(--space-3);">Tr&eacute;sorerie multi-flux</h4>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);line-height:1.65;">Vases communicants entre structures, gestion des pr&ecirc;ts internes et allers-retours, pas de vision consolid&eacute;e temps r&eacute;el. Excel comme outil principal.</p>
+      </div>
+
+      <div class="reveal" data-delay="7" style="background:var(--color-card-bg);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);">
+        <h4 style="font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--color-dark);margin-bottom:var(--space-3);">Patrimoine immobilier &mdash; 5 SCI</h4>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);line-height:1.65;">SCI YERRES &middot; SCI YD INVEST &middot; SCI YDEMM &middot; SCI THOLLON &middot; SCI SMEL IMMO &mdash; valorisation &agrave; documenter avec le client.</p>
+      </div>
+
+      <div class="validation-widget reveal" data-delay="8" style="margin-top:var(--space-8);">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; Situation financi&egrave;re</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="finances" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="finances">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="finances" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur la situation financi&egrave;re&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 2.5 VERBATIMS -->
+    <section id="verbatims" style="margin-bottom: var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">2.5</span>
+        <h2 class="section-title">Verbatims</h2>
+        <p class="section-subtitle">Paroles de Dan ELFASSI recueillies lors des entretiens du 14 mai 2026, class&eacute;es par th&egrave;me.</p>
+      </div>
+
+      <div class="verbatim-group reveal" data-delay="1">
+        <div class="verbatim-group-title"><i class="fa-solid fa-bolt"></i> Forces</div>
+        <blockquote class="verbatim">
+          &laquo;&nbsp;J&rsquo;ai un cahier de d&eacute;veloppement, avec chaque projet, toutes les id&eacute;es. Chaque d&eacute;but de mois, je fais ma liste du mois. Chaque semaine, je retranscris sur la semaine.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+        <blockquote class="verbatim">
+          &laquo;&nbsp;Sur le village, je suis seul, je suis dans une niche qui n&rsquo;est pas exploit&eacute;e correctement.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+        <blockquote class="verbatim">
+          &laquo;&nbsp;Sur la montagne, je suis chez moi, c&rsquo;est mon chalet.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+      </div>
+
+      <div class="verbatim-group reveal" data-delay="2">
+        <div class="verbatim-group-title" style="color:#ef4444;"><i class="fa-solid fa-fire"></i> Douleurs</div>
+        <blockquote class="verbatim" style="border-color:#ef4444;">
+          &laquo;&nbsp;Aujourd&rsquo;hui, mon activit&eacute;, le probl&egrave;me, c&rsquo;est que tout est m&eacute;lang&eacute;.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+        <blockquote class="verbatim" style="border-color:#ef4444;">
+          &laquo;&nbsp;Je subis une partie de mon activit&eacute;.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+        <blockquote class="verbatim" style="border-color:#ef4444;">
+          &laquo;&nbsp;La multiplication de mes outils fait que je suis compl&egrave;tement perdu.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+        <blockquote class="verbatim" style="border-color:#ef4444;">
+          &laquo;&nbsp;Les infos ne sont pas &agrave; jour en temps r&eacute;el. C&rsquo;est surtout &ccedil;a.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+        <blockquote class="verbatim" style="border-color:#ef4444;">
+          &laquo;&nbsp;J&rsquo;ai une dette qui s&rsquo;&eacute;l&egrave;ve &agrave; 600 000 euros.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+      </div>
+
+      <div class="verbatim-group reveal" data-delay="3">
+        <div class="verbatim-group-title" style="color:#10b981;"><i class="fa-solid fa-seedling"></i> Ambitions</div>
+        <blockquote class="verbatim" style="border-color:#10b981;">
+          &laquo;&nbsp;Il me faut 500 000 euros de marge brute par an.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+        <blockquote class="verbatim" style="border-color:#10b981;">
+          &laquo;&nbsp;Au bout de six mois, un an, je peux commencer &agrave; prendre mes vraies d&eacute;cisions.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+        <blockquote class="verbatim" style="border-color:#10b981;">
+          &laquo;&nbsp;Je veux recentrer mon &eacute;nergie.&nbsp;&raquo;
+          <cite>&mdash; Dan ELFASSI &mdash; 14 mai 2026</cite>
+        </blockquote>
+      </div>
+
+      <div class="validation-widget reveal" data-delay="4">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; Verbatims</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="verbatims" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="verbatims">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="verbatims" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur les verbatims&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--color-dark);color:rgba(255,255,255,0.6);text-align:center;padding:var(--space-10) var(--space-4);">
+    <div class="container">
+      <p style="font-size:var(--text-sm);margin-bottom:var(--space-2);">
+        <a href="index.html" style="color:rgba(255,255,255,0.8);text-decoration:none;font-weight:var(--weight-semibold);">Dan <span style="color:var(--color-primary-light);">ELFASSI</span></a>
+        &nbsp;&mdash;&nbsp;
+        <a href="ecosysteme.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">&Eacute;cosyst&egrave;me</a> &middot;
+        <a href="besoin.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Besoin</a> &middot;
+        <a href="mission.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Mission</a> &middot;
+        <a href="livrables.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Livrables</a> &middot;
+        <a href="conditions.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Conditions</a>
+      </p>
+      <p style="font-size:var(--text-xs);color:rgba(255,255,255,0.35);">Document confidentiel &mdash; usage exclusif Dan ELFASSI &amp; ORRTYL &mdash; &copy; 2026</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp FAB -->
+  <div class="whatsapp-fab">
+    <div class="whatsapp-fab-label">Une question ?</div>
+    <a href="https://wa.me/33763662002" target="_blank" rel="noopener" class="whatsapp-fab-btn" aria-label="Contacter via WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const pb = document.getElementById('progress-bar');
+    if (pb) {
+      window.addEventListener('scroll', () => {
+        const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        pb.style.width = Math.min(pct, 100) + '%';
+      }, { passive: true });
+    }
+    const nav = document.getElementById('main-nav');
+    if (nav) {
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      }, { passive: true });
+    }
+    const hb = document.getElementById('hamburger');
+    const nm = document.getElementById('nav-mobile');
+    if (hb && nm) {
+      hb.addEventListener('click', () => {
+        hb.classList.toggle('open');
+        nm.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>

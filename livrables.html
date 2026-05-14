@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livrables &mdash; Dan ELFASSI | ORRTYL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .module-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+    .module-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--color-primary), var(--color-primary-light));
+    }
+    .module-card h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+      margin: 0 0 var(--space-5) 0;
+    }
+    .module-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .module-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.5;
+    }
+    .module-list li::before {
+      content: '\2713';
+      color: var(--color-primary);
+      font-weight: var(--weight-bold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+    @media (max-width: 768px) {
+      .modules-grid { grid-template-columns: 1fr; }
+    }
+    .phase-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+    .phase-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--color-primary), var(--color-primary-light));
+    }
+    .phase-number {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+    .phase-title {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-bold);
+      color: var(--color-dark);
+      margin-bottom: var(--space-4);
+    }
+    .phase-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+    .phase-notice {
+      background: var(--color-primary-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-6);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      margin-top: var(--space-8);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+    .phase-notice i {
+      color: var(--color-primary);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: var(--space-10) 0;
+    }
+  </style>
+</head>
+<body data-page="livrables">
+
+  <div id="progress-bar"></div>
+
+  <!-- NAV -->
+  <nav class="nav nav-glass" id="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Dan <span class="logo-accent">ELFASSI</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="ecosysteme.html" class="nav-link">&Eacute;cosyst&egrave;me</a>
+        <a href="besoin.html" class="nav-link">Besoin</a>
+        <a href="mission.html" class="nav-link">Mission</a>
+        <a href="livrables.html" class="nav-link active">Livrables</a>
+        <a href="conditions.html" class="nav-link">Conditions</a>
+      </div>
+      <div class="nav-hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="ecosysteme.html" class="nav-link">&Eacute;cosyst&egrave;me</a>
+      <a href="besoin.html" class="nav-link">Besoin</a>
+      <a href="mission.html" class="nav-link">Mission</a>
+      <a href="livrables.html" class="nav-link active">Livrables</a>
+      <a href="conditions.html" class="nav-link">Conditions</a>
+    </div>
+  </nav>
+
+  <!-- HERO MINI -->
+  <section class="hero" style="min-height:40vh; padding-top:120px; padding-bottom:var(--space-12);">
+    <div class="hero-particles" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-content" style="text-align:center; max-width:700px; margin:0 auto;">
+        <p class="hero-eyebrow reveal" data-delay="0"><i class="fa-solid fa-box-archive"></i> Livrables &amp; jalons</p>
+        <h1 class="hero-title reveal" data-delay="1">Ce que vous <span class="gradient-text">recevrez</span></h1>
+        <p class="hero-subtitle reveal" data-delay="2">Livrables structur&eacute;s par module, avec des jalons de validation clairs et une progression adapt&eacute;e &agrave; vos priorit&eacute;s.</p>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" style="padding-bottom:var(--space-20);">
+
+    <!-- 5.1 LIVRABLES PAR MODULE -->
+    <section id="livrables" style="margin-bottom:var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">5.1</span>
+        <h2 class="section-title">Livrables par module</h2>
+        <p class="section-subtitle">Chaque module d&eacute;livre un ensemble de r&eacute;sultats concrets, co-construits avec vous au fil de la mission.</p>
+      </div>
+
+      <div class="modules-grid">
+
+        <!-- M1 -->
+        <div class="module-card reveal" data-delay="1">
+          <h3>M1 &mdash; Penny Lane (Consolid&eacute; groupe)</h3>
+          <ul class="module-list">
+            <li>Audit de l&rsquo;organisation comptable existante</li>
+            <li>Cartographie des flux comptables</li>
+            <li>Configuration compl&egrave;te Penny Lane (14 modules)</li>
+            <li>Connexions bancaires multi-entit&eacute;s</li>
+            <li>Formation &eacute;quipes et proc&eacute;dures internes</li>
+            <li>Coordination expert-comptable</li>
+            <li>Dossier de pr&eacute;sentation partenaire financier</li>
+          </ul>
+        </div>
+
+        <!-- M2 -->
+        <div class="module-card reveal" data-delay="2">
+          <h3>M2 &mdash; Gestion tr&eacute;sorerie multi-flux</h3>
+          <ul class="module-list">
+            <li>Dashboard tr&eacute;sorerie temps r&eacute;el</li>
+            <li>Cat&eacute;gorisation multi-flux par structure et par activit&eacute;</li>
+            <li>Suivi des pr&ecirc;ts internes et allers-retours</li>
+            <li>Exports comptables automatis&eacute;s</li>
+            <li>Alertes de seuil et pr&eacute;visionnel</li>
+          </ul>
+        </div>
+
+        <!-- M3 -->
+        <div class="module-card reveal" data-delay="3">
+          <h3>M3 &mdash; CRM C-Lodge &amp; Montagne</h3>
+          <ul class="module-list">
+            <li>Syst&egrave;me de devis automatis&eacute; (groupes vs particuliers)</li>
+            <li>Planning de r&eacute;servation avec disponibilit&eacute;s</li>
+            <li>Gestion des chambres et chalets</li>
+            <li>Syst&egrave;me de relances automatiques</li>
+            <li>Historique client et base de donn&eacute;es</li>
+            <li>Flux diff&eacute;renci&eacute;s par type de client</li>
+          </ul>
+        </div>
+
+        <!-- M4 -->
+        <div class="module-card reveal" data-delay="4">
+          <h3>M4 &mdash; Automatisations</h3>
+          <ul class="module-list">
+            <li>Bot Telegram &harr; CRM (notes vocales &rarr; donn&eacute;es structur&eacute;es)</li>
+            <li>Photos de factures &rarr; rapprochement automatique</li>
+            <li>Bot FAQ parents (base de connaissances)</li>
+            <li>Notifications cartes bleues &eacute;quipes</li>
+            <li>Workflows automatis&eacute;s (inscriptions, relances, rappels)</li>
+          </ul>
+        </div>
+
+        <!-- M5 -->
+        <div class="module-card reveal" data-delay="1">
+          <h3>M5 &mdash; Marketing &amp; R&eacute;seaux sociaux</h3>
+          <ul class="module-list">
+            <li>Audit pr&eacute;sence digitale actuelle</li>
+            <li>Strat&eacute;gie de contenu par marque</li>
+            <li>Planning de publications automatis&eacute; (Insta, FB, TikTok)</li>
+            <li>Templates de posts r&eacute;utilisables</li>
+            <li>Sessions mensuelles de planification</li>
+            <li>Reporting et analytics</li>
+          </ul>
+        </div>
+
+        <!-- M6 -->
+        <div class="module-card reveal" data-delay="2">
+          <h3>M6 &mdash; Interface AlloColo</h3>
+          <ul class="module-list">
+            <li>Analyse de l&rsquo;API AlloColo (si disponible)</li>
+            <li>Connecteur CRM &harr; AlloColo</li>
+            <li>Remont&eacute;e des donn&eacute;es d&rsquo;inscription dans le tableau de bord</li>
+          </ul>
+        </div>
+
+        <!-- M7 -->
+        <div class="module-card reveal" data-delay="3">
+          <h3>M7 &mdash; Campagnes &amp; Dons</h3>
+          <ul class="module-list">
+            <li>Plateforme de dons personnalis&eacute;e (Stripe/Link)</li>
+            <li>Pages de campagne avec mur de donateurs</li>
+            <li>Gestion tombola int&eacute;gr&eacute;e</li>
+            <li>Syst&egrave;me de promesses de dons avec relances</li>
+            <li>Re&ccedil;us fiscaux automatis&eacute;s</li>
+            <li>0&thinsp;% de frais sur les transactions</li>
+          </ul>
+        </div>
+
+        <!-- M8 -->
+        <div class="module-card reveal" data-delay="4">
+          <h3>M8 &mdash; Cartes bleues &eacute;quipes</h3>
+          <ul class="module-list">
+            <li>G&eacute;n&eacute;ration de cartes bleues (physiques et virtuelles)</li>
+            <li>Plafonds et restrictions par carte</li>
+            <li>Notifications temps r&eacute;el avec demande de justificatif</li>
+            <li>Rapprochement automatique dans Penny Lane</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="validation-widget reveal" data-delay="5" style="margin-top:var(--space-8);">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; Livrables par module</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="livrables" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="livrables">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="livrables" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur les livrables&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- 5.2 TIMELINE -->
+    <section id="timeline" style="margin-bottom:var(--space-16);">
+      <div class="section-header reveal" data-delay="0">
+        <span class="badge badge-primary">5.2</span>
+        <h2 class="section-title">Phasage de la mission</h2>
+        <p class="section-subtitle">4 phases progressives, de la mise en place initiale &agrave; l&rsquo;autonomie compl&egrave;te.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="phase-card reveal" data-delay="1">
+          <div class="phase-number">Phase 1</div>
+          <div class="phase-title">Intensif</div>
+          <div class="phase-desc">Audit, structuration, configuration Penny Lane, mise &agrave; plat financi&egrave;re</div>
+        </div>
+        <div class="phase-card reveal" data-delay="2">
+          <div class="phase-number">Phase 2</div>
+          <div class="phase-title">D&eacute;ploiement</div>
+          <div class="phase-desc">CRM, automatisations, marketing, int&eacute;grations</div>
+        </div>
+        <div class="phase-card reveal" data-delay="3">
+          <div class="phase-number">Phase 3</div>
+          <div class="phase-title">Suivi</div>
+          <div class="phase-desc">Accompagnement, ajustements, formation continue</div>
+        </div>
+        <div class="phase-card reveal" data-delay="4">
+          <div class="phase-number">Phase 4</div>
+          <div class="phase-title">&Eacute;volution</div>
+          <div class="phase-desc">Nouvelles fonctionnalit&eacute;s, optimisation, autonomie</div>
+        </div>
+      </div>
+
+      <div class="phase-notice reveal" data-delay="5">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>Le planning d&eacute;taill&eacute; sera d&eacute;fini ensemble au fil de la mission, en fonction des priorit&eacute;s valid&eacute;es.</span>
+      </div>
+
+      <div class="validation-widget reveal" data-delay="6" style="margin-top:var(--space-8);">
+        <div class="validation-header">
+          <div class="validation-title"><i class="fa-solid fa-check-circle"></i> Validation &mdash; Timeline</div>
+        </div>
+        <div class="validation-actions">
+          <button class="btn btn-primary btn-sm valid-btn" data-section="timeline" data-label-default="Valider cette section" data-label-done="Section valid&eacute;e &#10003;">Valider cette section</button>
+          <button class="btn btn-outline btn-sm comment-btn" data-section="timeline">Ajouter un commentaire</button>
+        </div>
+        <div class="comment-area" data-section="timeline" style="display:none;">
+          <textarea class="comment-input" placeholder="Votre commentaire sur le phasage&hellip;" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--color-dark);color:rgba(255,255,255,0.6);text-align:center;padding:var(--space-10) var(--space-4);">
+    <div class="container">
+      <p style="font-size:var(--text-sm);margin-bottom:var(--space-2);">
+        <a href="index.html" style="color:rgba(255,255,255,0.8);text-decoration:none;font-weight:var(--weight-semibold);">Dan <span style="color:var(--color-primary-light);">ELFASSI</span></a>
+        &nbsp;&mdash;&nbsp;
+        <a href="ecosysteme.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">&Eacute;cosyst&egrave;me</a> &middot;
+        <a href="besoin.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Besoin</a> &middot;
+        <a href="mission.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Mission</a> &middot;
+        <a href="livrables.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Livrables</a> &middot;
+        <a href="conditions.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Conditions</a>
+      </p>
+      <p style="font-size:var(--text-xs);color:rgba(255,255,255,0.35);">Document confidentiel &mdash; usage exclusif Dan ELFASSI &amp; ORRTYL &mdash; &copy; 2026</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp FAB -->
+  <div class="whatsapp-fab">
+    <div class="whatsapp-fab-label">Une question ?</div>
+    <a href="https://wa.me/33763662002" target="_blank" rel="noopener" class="whatsapp-fab-btn" aria-label="Contacter via WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const pb = document.getElementById('progress-bar');
+    if (pb) {
+      window.addEventListener('scroll', () => {
+        const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        pb.style.width = Math.min(pct, 100) + '%';
+      }, { passive: true });
+    }
+    const nav = document.getElementById('main-nav');
+    if (nav) {
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      }, { passive: true });
+    }
+    const hb = document.getElementById('hamburger');
+    const nm = document.getElementById('nav-mobile');
+    if (hb && nm) {
+      hb.addEventListener('click', () => {
+        hb.classList.toggle('open');
+        nm.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>
